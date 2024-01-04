@@ -1,0 +1,55 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-class-properties": "^7.2.3",
+        "@babel/preset-env": "^7.9.5",
+        "@babel/preset-react": "^7.0.0",
+        "axios": "^0.19",
+        "bootstrap": "^4.4.1",
+        "cross-env": "^7.0",
+        "jquery": "^3.2",
+        "laravel-mix": "^5.0.1",
+        "lodash": "^4.17.13",
+        "popper.js": "^1.12",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "resolve-url-loader": "^3.1.0",
+        "sass": "^1.15.2",
+        "sass-loader": "^8.0.0"
+    },
+    "dependencies": {
+        "animate.css": "^3.7.2",
+        "izitoast": "^1.4.0",
+        "moment": "^2.24.0",
+        "react-animations": "^1.0.0",
+        "react-bootstrap": "^1.0.0",
+        "react-confirm-alert": "^2.6.1",
+        "react-content-loader": "^5.0.4",
+        "react-js-pagination": "^3.0.3",
+        "react-loading-overlay": "^1.0.1",
+        "react-redux": "^7.2.0",
+        "react-router-dom": "^5.1.2",
+        "react-spinners": "^0.8.1",
+        "redux": "^4.0.5",
+        "simple-react-validator": "^1.4.5",
+        "validator": "^13.0.0"
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env",
+            "@babel/preset-react"
+        ],
+        "plugins": [
+            "@babel/plugin-proposal-class-properties"
+        ]
+    }
+}
