@@ -11,10 +11,10 @@ class PartyController extends Controller
     public function partiesDropdown(Request $request)
     {
 
-        $name = Name::get();
+        $party = Party::get();
 
         $obj = (object)array(
-            'name' => $name
+            'name' => $party
         );
 
         return response()->json([
