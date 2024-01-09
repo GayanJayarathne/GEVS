@@ -10,4 +10,5 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function () {
     Route::post('/lead/destroy', 'Api\LeadController@destroy');
 
     Route::get('/dashboard-data', 'Api\HomeController@getData');
+    Route::get('/party/dropdown', 'Api\PartyController@partiesdropdown');
 });
