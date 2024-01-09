@@ -14,7 +14,7 @@ class PartyController extends Controller
         $party = party::get();
 
         $obj = (object)array(
-            'name' => $party
+            'party' => $party
         );
 
         return response()->json([

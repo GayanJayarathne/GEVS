@@ -11,7 +11,8 @@ class party extends Model
         'name'
     ];
 
-    public static function get()
+    public function parties()
     {
+        return $this ->hasOne('App\Models\party');
     }
 }
