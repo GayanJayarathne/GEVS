@@ -33,11 +33,5 @@
                 </ul>
               </div>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://github.com/arifszn/react-laravel" target="_blank">
-                <span class="menu-title">Source</span>
-                <i class="mdi mdi-github-circle menu-icon"></i>
-              </a>
-            </li>
           </ul>
         </nav>

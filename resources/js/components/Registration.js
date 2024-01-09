@@ -11,11 +11,14 @@ class Registration extends Component {
         this.state = {
             name: '',
             email: '',
+            date_of_birth: '',
+            constituency: '',
+            uvc: '',
             password: '',
             password_confirmation: '',
             loading: false
         }
-        
+
         this.validator = new SimpleReactValidator({
             autoForceUpdate: this,
             className: 'small text-danger mdi mdi-alert',
@@ -58,7 +61,7 @@ class Registration extends Component {
 
     onSubmitHandle = (e) =>{
         e.preventDefault();
-        
+
         if (this.validator.allValid()) {
             this.setState({
                 loading: true
@@ -84,7 +87,7 @@ class Registration extends Component {
                             message : response.data.message
                         });
                 } else if (response.data.status == 'success') {
-                    
+
                    window.location = "/home";
                 }
             })
@@ -107,8 +110,8 @@ class Registration extends Component {
                         type : 'error',
                         message : error.response.data.message
                     });
-                } 
-                
+                }
+
             });
         } else {
             this.validator.showMessages();
@@ -133,9 +136,6 @@ class Registration extends Component {
                     }}
                 >
                     <div className="auth-form-light text-left p-5 animated fadeIn">
-                        <div className="brand-logo">
-                            <h1 className="text-center" style={{color: '#da8cff'}}>{global.variables.site_name}</h1>
-                        </div>
                         <h4>New here?</h4>
                         <form className="pt-3" ref={c => { this.form = c }} onSubmit={this.onSubmitHandle}>
                             <div className="form-group">
@@ -147,6 +147,28 @@ class Registration extends Component {
                             <div className="form-group">
                                 <input type="text" className="form-control form-control-lg" name="email" id="email" placeholder="Email" value={this.state.email} onChange={this.onChangeHandle}/>
                                 {this.validator.message('email', this.state.email, 'required|email')}
+                            </div>
+                            <div className="form-group">
+                                <label>Date of Birth :</label>
+                                <input type="date" className="form-control form-control-lg" name="date_of_birth" id="date_of_birth" placeholder="Date of Birth" value={this.state.date_of_birth} onChange={this.onChangeHandle}/>
+                                {this.validator.message('email', this.state.date_of_birth, 'required|date_of_birth')}
+                            </div>
+                            <div className="form-group">
+                                <div className="input-group input-group-sm">
+                                    <select className="form-control form-control-sm" placeholder="Constituency" id="constituency" name="constituency" value={this.state.constituency} onChange={this.onChangeHandle}>
+                                        <option selected disabled value="">Constituency</option>
+                                        <option value="shangri-la-town">Shangri-la-Town</option>
+                                        <option value="northern-kunlun-mountain">Northern-Kunlun-Mountain</option>
+                                        <option value="western-shangri-la">Western-Shangri-la</option>
+                                        <option value="naboo-vallery">Naboo-Vallery</option>
+                                        <option value="new-felucia">New-Felucia</option>
+                                    </select>
+                                </div>
+                                {this.validator.message('email', this.state.constituency, 'required|constituency')}
+                            </div>
+                            <div className="form-group">
+                                <input type="text" className="form-control form-control-lg" name="uvc" id="uvc" placeholder="Unique Voter Code (UVC)" value={this.state.uvc} onChange={this.onChangeHandle}/>
+                                {this.validator.message('email', this.state.uvc, 'required|uvc')}
                             </div>
                             <div className="form-group">
                                 <input type="password" className="form-control form-control-lg" name="password" id="password" placeholder="Password" value={this.state.password} onChange={this.onChangeHandle}/>
