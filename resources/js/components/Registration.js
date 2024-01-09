@@ -57,6 +57,7 @@ class Registration extends Component {
         this.setState({
             [name] : value
         });
+        console.log({ name, value })
     }
 
     onSubmitHandle = (e) =>{
