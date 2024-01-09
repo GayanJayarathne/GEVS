@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Faker\Guesser\Name;
+use App\Models\party;
 use Illuminate\Http\Request;
 
 class PartyController extends Controller
@@ -11,7 +11,7 @@ class PartyController extends Controller
     public function partiesDropdown(Request $request)
     {
 
-        $party = Party::get();
+        $party = party::get();
 
         $obj = (object)array(
             'name' => $party
