@@ -72138,6 +72138,11 @@ var Registration = /*#__PURE__*/function (_Component) {
           value = _e$target.value;
 
       _this.setState(_defineProperty({}, name, value));
+
+      console.log({
+        name: name,
+        value: value
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSubmitHandle", function (e) {
