@@ -9,8 +9,8 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            email: 'demo@example.com',
-            password: '12345',
+            email: 'election@shangrila.gov.sr',
+            password: 'shangrila2024$',
             loading: false
         }
 
@@ -33,7 +33,7 @@ class Login extends Component {
 
     onSubmitHandle = (e) =>{
         e.preventDefault();
-        
+
         if (this.validator.allValid()) {
             this.setState({
                 loading: true
@@ -83,8 +83,8 @@ class Login extends Component {
                         type : 'error',
                         message : error.response.data.message
                     });
-                } 
-                
+                }
+
             });
         } else {
             this.validator.showMessages();

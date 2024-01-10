@@ -18,19 +18,19 @@
   </head>
   <body>
     <div class="container-scroller">
-      @include('user.layout.partials._navbar')
+      @include('voter.layout.partials._navbar')
       <div class="container-fluid page-body-wrapper">
-        @include('user.layout.partials._sidebar')
+        @include('voter.layout.partials._sidebar')
         <div class="main-panel">
           <div class="content-wrapper">
             @yield('container')
           </div>
-          @include('user.layout.partials._footer')
+          @include('voter.layout.partials._footer')
         </div>
       </div>
     </div>
     <script src="{{asset('assets/vendors/js/vendor.bundle.base.js')}}"></script>
-    
+
     <!-- inject:js -->
     <script src="{{asset('assets/js/off-canvas.js')}}"></script>
     <script src="{{asset('assets/js/hoverable-collapse.js')}}"></script>
@@ -39,6 +39,6 @@
     @include('global_script')
     @yield('scripts')
     <!-- endinject -->
-    @include('user.layout.partials._toaster-message')
+    @include('voter.layout.partials._toaster-message')
   </body>
 </html>
