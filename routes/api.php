@@ -11,4 +11,5 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function () {
 
     Route::get('/dashboard-data', 'Api\HomeController@getData');
     Route::get('/party/party-dropdown', 'Api\PartyController@partiesDropdown');
+    Route::get('/constituency/constituency-dropdown', 'Api\ConstituencyController@constituenciesDropdown');
 });
