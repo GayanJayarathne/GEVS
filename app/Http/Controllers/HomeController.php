@@ -10,10 +10,23 @@ use Faker\Provider\Lorem;
 
 class HomeController extends Controller
 {
+//    public function index(Request $request)
+//    {
+//        return view('user.dashboard');
+//    }
+
     public function index(Request $request)
     {
-        return view('user.dashboard');
+        $loggedUser=Auth::user();
+
+        if($loggedUser->email==='election@shangrila.gov.sr'){ //1 is admin role
+            return view('user.dashboard');
+        }else{
+            return redirect(route('voter.index'));
+        }
     }
+
+
 
     public function logout(Request $request)
     {
