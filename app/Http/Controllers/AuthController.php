@@ -13,104 +13,6 @@ use Validator;
 
 class AuthController extends Controller
 {
-//    public function index(Request $request)
-//    {
-//        return view('user.login');
-//    }
-//
-//    public function redirectToIndex()
-//    {
-//        return Redirect(route('Login'));
-//    }
-//
-//    public function signup(Request $request)
-//    {
-//        $validate = Validator::make($request->all(), [
-//            'name' => 'required|string',
-//            'email' => 'required|email|unique:users',
-//            'password' => 'required|confirmed'
-//        ]);
-//
-//        if ($validate->fails()) {
-//            return response()->json([
-//                'message' => $validate->errors(),
-//                'status' => 'validation-error'
-//            ], 401);
-//        }
-//
-//        $user = User::create([
-//            'name' => $request->name,
-//            'email' => $request->email,
-//            'password' => bcrypt($request->password),
-//            'api_token' => Str::random(80),
-//        ]);
-//        $user->save();
-//
-//        $token = Str::random(80);
-//
-//        $user->forceFill([
-//            'api_token' => hash('sha256', $token),
-//        ])->save();
-//
-//        $credentials = request(['email', 'password']);
-//
-//        if(!Auth::guard('users')->attempt($credentials))
-//            return response()->json([
-//                'message' => 'Invalid email or password',
-//                'status' => 'error'
-//            ], 401);
-//
-//        return response()->json([
-//            'message' => $user->api_token,
-//            'status' => 'success'
-//        ], 201);
-//    }
-//
-//    public function login(Request $request)
-//    {
-//        $validate = Validator::make($request->all(), [
-//            'email' => 'required|email',
-//            'password' => 'required'
-//        ]);
-//
-//        if ($validate->fails()) {
-//            return response()->json([
-//                'message' => $validate->errors(),
-//                'status' => 'validation-error'
-//            ], 401);
-//        }
-//
-//        $credentials = request(['email', 'password']);
-//
-//        if(!Auth::guard('users')->attempt($credentials))
-//            return response()->json([
-//                'message' => 'Invalid email or password',
-//                'status' => 'error'
-//            ], 401);
-//        $user = $request->user();
-//
-//        return response()->json([
-//            'message' => $user->api_token,
-//            'status' => 'success'
-//        ], 201);
-//    }
-//
-//    public function logout(Request $request)
-//    {
-//    }
-//
-//
-//    public function user(Request $request)
-//    {
-//        return response()->json([
-//            'message' => $request->user(),
-//            'status' => 'success'
-//        ]);
-//    }
-
-
-////////////////////////////////////
-///
     public function index(Request $request)
     {
         return view('user.login');
@@ -136,35 +38,33 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $person = Person::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'api_token' => Str::random(80),
         ]);
-        $person->save();
+        $user->save();
 
-        $apiToken = Str::random(80);
+        $token = Str::random(80);
 
-        $person->forceFill([
-            'api_token' => hash('sha256', $apiToken),
+        $user->forceFill([
+            'api_token' => hash('sha256', $token),
         ])->save();
 
         $credentials = request(['email', 'password']);
 
-        if(!Auth::guard('people')->attempt($credentials))
+        if(!Auth::guard('users')->attempt($credentials))
             return response()->json([
                 'message' => 'Invalid email or password',
                 'status' => 'error'
             ], 401);
 
         return response()->json([
-            'message' => $person->api_token,
+            'message' => $user->api_token,
             'status' => 'success'
         ], 201);
     }
-
-
 
     public function login(Request $request)
     {
@@ -182,26 +82,126 @@ class AuthController extends Controller
 
         $credentials = request(['email', 'password']);
 
-        if(!Auth::guard('people')->attempt($credentials))
+        if(!Auth::guard('users')->attempt($credentials))
             return response()->json([
                 'message' => 'Invalid email or password',
                 'status' => 'error'
             ], 401);
-        $person = $request->Person();
+        $user = $request->user();
 
         return response()->json([
-            'result' => $person,
-            'status' => 'success',
-            'message' => 'Success',
+            'message' => $user->api_token,
+            'status' => 'success'
         ], 201);
     }
 
+    public function logout(Request $request)
+    {
+    }
 
-    public function person(Request $request)
+
+    public function user(Request $request)
     {
         return response()->json([
-            'message' => $request->person(),
+            'message' => $request->user(),
             'status' => 'success'
         ]);
     }
+
+
+////////////////////////////////////
+///
+//    public function index(Request $request)
+//    {
+//        return view('user.login');
+//    }
+//
+//    public function redirectToIndex()
+//    {
+//        return Redirect(route('Login'));
+//    }
+//
+//    public function signup(Request $request)
+//    {
+//        $validate = Validator::make($request->all(), [
+//            'name' => 'required|string',
+//            'email' => 'required|email|unique:users',
+//            'password' => 'required|confirmed'
+//        ]);
+//
+//        if ($validate->fails()) {
+//            return response()->json([
+//                'message' => $validate->errors(),
+//                'status' => 'validation-error'
+//            ], 401);
+//        }
+//
+//        $person = Person::create([
+//            'name' => $request->name,
+//            'email' => $request->email,
+//            'password' => bcrypt($request->password),
+//            'api_token' => Str::random(80),
+//        ]);
+//        $person->save();
+//
+//        $apiToken = Str::random(80);
+//
+//        $person->forceFill([
+//            'api_token' => hash('sha256', $apiToken),
+//        ])->save();
+//
+//        $credentials = request(['email', 'password']);
+//
+//        if(!Auth::guard('people')->attempt($credentials))
+//            return response()->json([
+//                'message' => 'Invalid email or password',
+//                'status' => 'error'
+//            ], 401);
+//
+//        return response()->json([
+//            'message' => $person->api_token,
+//            'status' => 'success'
+//        ], 201);
+//    }
+//
+//
+//
+//    public function login(Request $request)
+//    {
+//        $validate = Validator::make($request->all(), [
+//            'email' => 'required|email',
+//            'password' => 'required'
+//        ]);
+//
+//        if ($validate->fails()) {
+//            return response()->json([
+//                'message' => $validate->errors(),
+//                'status' => 'validation-error'
+//            ], 401);
+//        }
+//
+//        $credentials = request(['email', 'password']);
+//
+//        if(!Auth::guard('people')->attempt($credentials))
+//            return response()->json([
+//                'message' => 'Invalid email or password',
+//                'status' => 'error'
+//            ], 401);
+//        $person = $request->Person();
+//
+//        return response()->json([
+//            'result' => $person,
+//            'status' => 'success',
+//            'message' => 'Success',
+//        ], 201);
+//    }
+//
+//
+//    public function person(Request $request)
+//    {
+//        return response()->json([
+//            'message' => $request->person(),
+//            'status' => 'success'
+//        ]);
+//    }
 }
