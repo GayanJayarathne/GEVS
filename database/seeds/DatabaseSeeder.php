@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $testUser = User::create([
-            'name' => 'John Doe',
-            'email' => 'demo@example.com',
-            'password' => bcrypt('12345'),
+            'name' => 'Commission Officer',
+            'email' => 'election@shangrila.gov.sr',
+            'password' => bcrypt('shangrila2024$'),
             'api_token' => Str::random(80)
         ]);
     }
