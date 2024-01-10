@@ -71976,8 +71976,8 @@ var Login = /*#__PURE__*/function (_Component) {
     });
 
     _this.state = {
-      email: 'demo@example.com',
-      password: '12345',
+      email: 'election@shangrila.gov.sr',
+      password: 'shangrila2024$',
       loading: false
     };
     _this.validator = new simple_react_validator__WEBPACK_IMPORTED_MODULE_2___default.a({
