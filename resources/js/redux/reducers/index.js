@@ -1,11 +1,13 @@
 import authUserReducer from './authUser'
 import activeComponentReducer from './activeComponent'
 import { combineReducers } from 'redux'
+import constituencyReducer from "./constituency";
 //other reducers
 
 const rootReducer = combineReducers({
     authUserReducer: authUserReducer,
-    activeComponentReducer: activeComponentReducer
+    activeComponentReducer: activeComponentReducer,
+    constituencyReducer: constituencyReducer
 });
 
 export default rootReducer;

@@ -4,6 +4,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import * as Helpers from '../Helpers'
 import BeatLoader from 'react-spinners/BeatLoader'
 import LoadingOverlay from 'react-loading-overlay';
+import {saveConstituencyStateAttr} from "../redux/actions/constituencyAction";
 
 class Registration extends Component {
     constructor(props) {
@@ -47,6 +48,9 @@ class Registration extends Component {
             }
         });
     }
+
+
+
 
     componentDidMount() {
         document.title = 'Registration';
@@ -158,11 +162,11 @@ class Registration extends Component {
                                 <div className="input-group input-group-sm">
                                     <select className="form-control form-control-sm" placeholder="Constituency" id="constituency" name="constituency" value={this.state.constituency} onChange={this.onChangeHandle}>
                                         <option selected disabled value="">Constituency</option>
-                                        <option value="shangri-la-town">Shangri-la-Town</option>
-                                        <option value="northern-kunlun-mountain">Northern-Kunlun-Mountain</option>
-                                        <option value="western-shangri-la">Western-Shangri-la</option>
-                                        <option value="naboo-vallery">Naboo-Vallery</option>
-                                        <option value="new-felucia">New-Felucia</option>
+                                        <option value="1">Shangri-la-Town</option>
+                                        <option value="2">Northern-Kunlun-Mountain</option>
+                                        <option value="3">Western-Shangri-la</option>
+                                        <option value="4">Naboo-Vallery</option>
+                                        <option value="5">New-Felucia</option>
                                     </select>
                                 </div>
                                 {this.validator.message('email', this.state.constituency, 'required|constituency')}
