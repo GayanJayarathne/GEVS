@@ -11,6 +11,7 @@ class Person extends Model
         'fullName',
         'dateOfBirth',
         'password',
+        'apiToken',
         'constituencyId',
         'uvcCodeId'
     ];
