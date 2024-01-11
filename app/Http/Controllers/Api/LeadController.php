@@ -180,4 +180,26 @@ class LeadController extends Controller
             ]);
         }
     }
+
+
+//        $leads = Lead::where('user_id', $user->id)->orderBy($sortBy, $sortType);
+    public function listCandidateVotes(Request $request)
+    {
+        $user = User::where('api_token', $request['api_token'])->first();
+
+        $constituency = $request['constituency'];
+
+        $result = DB::table('leads')
+            ->join('parties', 'leads.party_id', '=', 'parties.id')
+            ->select('leads.name as candidate_name', 'parties.name as party_name', 'leads.votes')
+            ->groupBy('leads.constituency_id')
+            ->orderBy($request['votes'], $request['desc'])
+            ->paginate($request['per_page']);
+
+        return response()->json([
+            'constituency' => $constituency,
+            'result'       => $result->toArray(),
+            'status'       => 'success'
+        ]);
+    }
 }

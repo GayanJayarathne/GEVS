@@ -9,6 +9,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function () {
     Route::post('/lead/update', 'Api\LeadController@update');
     Route::post('/lead/updateVotes', 'Api\LeadController@updateVotes');
     Route::post('/lead/destroy', 'Api\LeadController@destroy');
+    Route::get('/lead/listCandidateVotes', 'Api\LeadController@listCandidateVotes');
 
     Route::get('/dashboard-data', 'Api\HomeController@getData');
     Route::get('/party/party-dropdown', 'Api\PartyController@partiesDropdown');
