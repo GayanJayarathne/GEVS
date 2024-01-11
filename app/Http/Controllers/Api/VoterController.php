@@ -19,11 +19,9 @@ class VoterController extends Controller
         $user = User::where('api_token',$request['api_token'])->first();
 
         $perPage = $request['per_page'];
-        $sortBy = $request['sort_by'];
-        $sortType = $request['sort_type'];
 
 
-        $leads = Lead::where('constituency_id', $user->constituency_id)->orderBy('created_at', 'desc');
+        $leads = Lead::where('constituency_id', $user->constituency_id)->orderBy('name', 'asc');
 //        $leads = Lead::orderBy($sortBy, $sortType);
 
         if ($request['query'] != '') {
