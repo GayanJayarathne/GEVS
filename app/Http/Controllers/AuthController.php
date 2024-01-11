@@ -43,6 +43,9 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'api_token' => Str::random(80),
+            'date_of_birth' => $request->date_of_birth,
+            'uvc_code_id' => $request->uvc,
+            'constituency_id' => $request->constituency,
         ]);
         $user->save();
 
