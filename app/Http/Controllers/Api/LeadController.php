@@ -75,8 +75,10 @@ class LeadController extends Controller
     {
         $user = User::where('api_token',$request['api_token'])->first();
 
-        $lead = Lead::where('id',$request['lead_id'])
-                        ->where('user_id', $user->id)
+//        $lead = Lead::where('id',$request['lead_id'])
+//                        ->where('user_id', $user->id)
+//                        ->first();
+        $lead = Lead::where('id')
                         ->first();
 
         if (empty($lead)) {
@@ -88,16 +90,10 @@ class LeadController extends Controller
 
 
         $validate = Validator::make($request->all(), [
-            'name'        => 'required|string',
-            'email'       => 'required|email|unique:leads,email,'.$lead->id.',id',
-            'phone'       => 'required|unique:leads,phone,'.$lead->id.',id',
-            'address'     => '',
-            'description' => '',
-            'progress'    => 'numeric',
-            'status'      => 'numeric',
-            'earnings'    => 'numeric',
-            'expenses'    => 'numeric',
-            'net'         => 'numeric',
+            'name'            => 'required|string',
+            'party_id'        => 'numeric',
+            'constituency_id' => 'numeric',
+            'votes'           => 'numeric',
         ]);
 
         if ($validate->fails()) {
@@ -108,16 +104,10 @@ class LeadController extends Controller
         }
 
         $updateLead = $lead->update([
-            'name'        => $request['name'],
-            'email'       => $request['email'],
-            'phone'       => $request['phone'],
-            'address'     => $request['address'],
-            'description' => $request['description'],
-            'progress'    => $request['progress'],
-            'status'      => $request['status'],
-            'earnings'    => $request['earnings'],
-            'expenses'    => $request['expenses'],
-            'net'         => $request['net'],
+            'name'             => $request['name'],
+            'party_id'         => $request['party'],
+            'constituency_id'  => $request['constituency'],
+            'votes'            => $request['votes'],
         ]);
 
         return response()->json([
