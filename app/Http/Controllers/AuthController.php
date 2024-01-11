@@ -28,22 +28,7 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
-//        $uvc = UVCCode::where('api_token',$request['api_token'])->first();
-//
-//        $validate1 = Lead::where('id',$request['user_id'])
-//                        ->where('uvc_code_id', $uvc->id)
-//                        ->first();
-
-//        $uvcCode = DB::table('u_v_c_codes')
-//            ->whereNotNull('uvcCodeName')
-//            ->first();
-//
-//        if (empty($uvcCode)) {
-//            return response()->json([
-//                'message' => 'Invalid UVC Number',
-//                'status' => 'error'
-//            ],401);
-//        } else {
+        $uvcCode = UVCCode::where('uvcCodeName',$request['uvc'])->first();
 
         $validate = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -51,18 +36,16 @@ class AuthController extends Controller
             'password' => 'required|confirmed'
         ]);
 
-        if ($validate->fails()) {
+        if (!$validate) {
             return response()->json([
                 'message' => $validate->errors(),
                 'status' => 'validation-error'
             ], 401);
         }
-        $uvcCode = DB::table('u_v_c_codes')
-            ->whereNotNull('uvcCodeName')
-            ->first();
-        if ($uvcCode->fails()) {
+
+        if (!$uvcCode) {
             return response()->json([
-                'message' => $validate->errors(),
+                'message' => 'Invalid UVC',
                 'status' => 'validation-error'
             ], 401);
         }
@@ -73,7 +56,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
             'api_token' => Str::random(80),
             'date_of_birth' => $request->date_of_birth,
-            'uvc_code_id' => $request->uvc,
+            'uvc_code_id' => $uvcCode->id,
             'constituency_id' => $request->constituency,
         ]);
         $user->save();
