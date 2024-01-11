@@ -20,23 +20,23 @@ function TopControl(props) {
                                 </select>
                             </div>
                         </div>
-                        <div className="p-2">
-                            <div className="input-group input-group-sm">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text">Sort By</span>
-                                </div>
-                                <select className="form-control form-control-sm btn btn-success" disabled={props.isLoading ? true : false} defaultValue={props.sortBy} onChange={props.onChangeSortByHandle}>
-                                    <option value="created_at">Constituency</option>
-                                    <option value="name">Name</option>
-                                    <option value="email">Vote</option>
-                                </select>
-                                <div className="input-group-append">
-                                    <button disabled={props.isLoading ? true : false} className="bg-light btn btn-sm text-success" type="button" onClick={props.onClickSortTypeHandle}>
-                                        { props.sortType == 'asc' ?  <i className="mdi mdi-arrow-down"></i> : <i className="mdi mdi-arrow-up"></i>}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        {/*<div className="p-2">*/}
+                        {/*    <div className="input-group input-group-sm">*/}
+                        {/*        <div className="input-group-prepend">*/}
+                        {/*            <span className="input-group-text">Sort By</span>*/}
+                        {/*        </div>*/}
+                        {/*        <select className="form-control form-control-sm btn btn-success" disabled={props.isLoading ? true : false} defaultValue={props.sortBy} onChange={props.onChangeSortByHandle}>*/}
+                        {/*            <option value="created_at">Constituency</option>*/}
+                        {/*            <option value="name">Name</option>*/}
+                        {/*            <option value="email">Vote</option>*/}
+                        {/*        </select>*/}
+                        {/*        <div className="input-group-append">*/}
+                        {/*            <button disabled={props.isLoading ? true : false} className="bg-light btn btn-sm text-success" type="button" onClick={props.onClickSortTypeHandle}>*/}
+                        {/*                { props.sortType == 'asc' ?  <i className="mdi mdi-arrow-down"></i> : <i className="mdi mdi-arrow-up"></i>}*/}
+                        {/*            </button>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                     <form className="p-2 col-md-4" onSubmit={props.onSubmitQueryHandle}>
                         <div className="input-group">

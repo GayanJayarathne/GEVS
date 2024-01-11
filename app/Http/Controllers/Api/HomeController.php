@@ -15,7 +15,7 @@ class HomeController extends Controller
         $user = User::where('api_token',$request['api_token'])->first();
 
 //        $allLead = Lead::where('user_id', $user->id);
-        $allLead = Lead;
+        $allLead = Lead::orderBy("created_at","desc");
 
         $weeklyLeadCount  = (clone $allLead)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
         $monthlyLeadCount = (clone $allLead)->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();

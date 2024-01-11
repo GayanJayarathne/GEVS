@@ -65829,7 +65829,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function Dashboard(props) {
+var Dashboard = function Dashboard(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     authUser: props.authUserProp,
     totalLeads: 0,
@@ -65894,19 +65894,54 @@ function Dashboard(props) {
         src: "/assets/images/faces/face1.jpg",
         className: "mr-2",
         alt: "image"
-      }), " ", lead.name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", lead.email, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", lead.phone, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), " ", lead.name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", renderConstituency(lead.constituency_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", renderParty(lead.party_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "progress"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "progress-bar bg-gradient-success",
         role: "progressbar",
         style: {
-          width: lead.progress + '%'
+          width: lead.votes ? lead.votes : 0 + '%'
         },
-        "aria-valuenow": lead.progress,
+        "aria-valuenow": lead.votes ? lead.votes : 0,
         "aria-valuemin": "0",
         "aria-valuemax": "100"
       }))));
     });
+  };
+
+  var renderConstituency = function renderConstituency(Id) {
+    switch (Id) {
+      case "1":
+        return "Shangri-la-Town";
+
+      case "2":
+        return "Northern-Kunlun-Mountain";
+
+      case "3":
+        return "Western-Shangri-la";
+
+      case "4":
+        return "Naboo-Vallery";
+
+      case "5":
+        return "New-Felucia";
+    }
+  };
+
+  var renderParty = function renderParty(Id) {
+    switch (Id) {
+      case "1":
+        return "Blue Party";
+
+      case "2":
+        return "Red Party";
+
+      case "3":
+        return "Yellow Party";
+
+      case "4":
+        return "Independent";
+    }
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65977,12 +66012,12 @@ function Dashboard(props) {
     className: "card-body animated fadeIn"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
     className: "card-title"
-  }, "Recent Leads"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Recent Candidates"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "table-responsive"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     className: "table"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Name "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Email "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Phone "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Progress "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, showRecentLeads()))))))));
-} //redux state can be accessed as props in this component(Optional)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Name "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Constituency "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Party "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Votes "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, showRecentLeads()))))))));
+}; //redux state can be accessed as props in this component(Optional)
 
 
 var mapStateToProps = function mapStateToProps(state) {
