@@ -123,7 +123,7 @@ class LeadController extends Controller
 
         if (empty($lead)) {
             return response()->json([
-                'message' => 'Lead Not Found',
+                'message' => 'UserId Not Found',
                 'status' => 'error'
             ]);
         }
@@ -151,7 +151,7 @@ class LeadController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Lead successfully updated',
+            'message' => 'Vote successfully updated',
             'status' => 'success'
         ]);
     }
