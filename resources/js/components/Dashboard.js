@@ -5,7 +5,7 @@ import rootAction from '../redux/actions/index'
 import { fadeIn } from 'animate.css'
 import 'iziToast/dist/css/iziToast.css';
 
-function Dashboard(props) {
+const Dashboard = (props) => {
 
     const [state, setState] = useState({
        authUser: props.authUserProp,
@@ -70,16 +70,46 @@ function Dashboard(props) {
                     return <tr key={i}>
                                 <td>
                                     <img src="/assets/images/faces/face1.jpg" className="mr-2" alt="image"/> {lead.name} </td>
-                                <td> {lead.email} </td>
-                                <td> {lead.phone} </td>
+                                <td> {renderConstituency(lead.constituency_id)} </td>
+                                <td> {renderParty(lead.party_id)} </td>
                                 <td>
                                     <div className="progress">
-                                        <div className="progress-bar bg-gradient-success" role="progressbar" style={{width: lead.progress+'%'}} aria-valuenow={lead.progress} aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div className="progress-bar bg-gradient-success" role="progressbar" style={{width: lead.votes?lead.votes:0+'%'}} aria-valuenow={lead.votes?lead.votes:0} aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </td>
                             </tr>;
                 });
     };
+
+    const renderConstituency = (Id) => {
+        switch (Id) {
+            case "1":
+                return "Shangri-la-Town";
+            case "2":
+                return "Northern-Kunlun-Mountain";
+            case "3":
+                return "Western-Shangri-la";
+            case "4":
+                return "Naboo-Vallery";
+            case "5":
+                return "New-Felucia";
+
+        }
+    }
+
+    const renderParty = (Id) => {
+        switch (Id) {
+            case "1":
+                return "Blue Party";
+            case "2":
+                return "Red Party";
+            case "3":
+                return "Yellow Party";
+            case "4":
+                return "Independent";
+
+        }
+    }
 
     return (
         <React.Fragment>
@@ -128,15 +158,15 @@ function Dashboard(props) {
               <div className="col-12 grid-margin">
                 <div className="card">
                     <div className="card-body animated fadeIn">
-                        <h4 className="card-title">Recent Leads</h4>
+                        <h4 className="card-title">Recent Candidates</h4>
                         <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>
                                 <th> Name </th>
-                                <th> Email </th>
-                                <th> Phone </th>
-                                <th> Progress </th>
+                                <th> Constituency </th>
+                                <th> Party </th>
+                                <th> Votes </th>
                             </tr>
                             </thead>
                             <tbody>
