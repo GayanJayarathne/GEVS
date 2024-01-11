@@ -36,11 +36,15 @@ Route::group(['middleware' => ['guest', 'web']], function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/logout', 'HomeController@logout')->name('Logout');
     Route::get('/home', 'HomeController@index')->name('Dashboard');
-    
+
+    Route::get('/voting-list', 'HomeController@index')->name('VoterDashboard');
+
     //react route
     Route::get('/lead/list', 'LeadController@index')->name('Leads');
     Route::get('/lead/new', 'LeadController@index')->name('NewLead');
     Route::get('/lead/edit/{id}', 'LeadController@index')->name('EditLead');
+
+
 
 
 });

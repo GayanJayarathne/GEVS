@@ -20,18 +20,5 @@
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#lead-routes" aria-expanded="false" aria-controls="lead-routes">
-                <span class="menu-title">Leads</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-account-multiple menu-icon"></i>
-              </a>
-              <div class="collapse" id="lead-routes">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="{{ route('Leads') }}">All</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="{{ route('NewLead') }}">New</a></li>
-                </ul>
-              </div>
-            </li>
           </ul>
         </nav>

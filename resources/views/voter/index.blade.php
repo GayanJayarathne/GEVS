@@ -19,5 +19,5 @@
     <script>
         var authUser = @json(Auth::user());
     </script>
-    <script src="{{ asset('js/views/Voter.js') }}"></script>
+    <script src="{{ asset('js/views/Dashboard.js') }}"></script>
 @endsection

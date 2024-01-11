@@ -65952,7 +65952,7 @@ var Dashboard = function Dashboard(props) {
     className: "page-title-icon bg-gradient-primary text-white mr-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "mdi mdi-home"
-  })), "Dashboard")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), "Dashboard")), authUser.email === "election@shangrila.gov.sr" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row animated fadeIn"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-4 stretch-card grid-margin"

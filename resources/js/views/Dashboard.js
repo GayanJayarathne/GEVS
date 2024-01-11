@@ -19,12 +19,12 @@ function App() {
 	//set reducer
 	const myDispatch = useDispatch();
 	myDispatch(rootAction.setAuthUser(authUser)); //authUser is from blade file
-    
+
 	//get reducer
     const activeComponent = useSelector(state => state.activeComponentReducer);
 
 
-	
+
 	return (
 		<React.Fragment>
             <Dashboard/>

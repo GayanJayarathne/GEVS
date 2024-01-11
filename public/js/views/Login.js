@@ -72176,7 +72176,11 @@ var Registration = /*#__PURE__*/function (_Component) {
               message: response.data.message
             });
           } else if (response.data.status == 'success') {
-            window.location = "/home";
+            window.location = "/login";
+            _Helpers__WEBPACK_IMPORTED_MODULE_3__["showSznNotification"]({
+              type: 'success',
+              message: 'success'
+            });
           }
         })["catch"](function (error) {
           _this.setState({

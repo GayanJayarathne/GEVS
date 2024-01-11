@@ -5,7 +5,7 @@ import rootAction from '../redux/actions/index'
 import { fadeIn } from 'animate.css'
 import 'iziToast/dist/css/iziToast.css';
 
-const Dashboard = (props) => {
+const VoterDashboard = (props) => {
 
     const [state, setState] = useState({
        authUser: props.authUserProp,
@@ -40,7 +40,7 @@ const Dashboard = (props) => {
             ...state,
             loading: true
         });
-        axios.get('/api/v1/dashboard-data', {
+        axios.get('/api/v1/candidate/constituency-list', {
             params: {
                 api_token: state.authUser.api_token,
             }
@@ -122,44 +122,38 @@ const Dashboard = (props) => {
 				</h3>
 			</div>
 
-            {authUser.email === "election@shangrila.gov.sr" && <div className="row animated fadeIn">
-                <div className="col-md-4 stretch-card grid-margin">
-                    <div className="card bg-danger card-img-holder text-white">
-                        <div className="card-body">
-                            <img src="/assets/images/dashboard/circle.svg" className="card-img-absolute"
-                                 alt="circle-image"/>
-                            <h4 className="font-weight-normal mb-3">Total Leads <i
-                                className="mdi mdi-chart-line mdi-24px float-right"></i>
-                            </h4>
-                            <h2 className="mb-5">{state.totalLeads}</h2>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4 stretch-card grid-margin">
-                    <div className="card bg-gradient-info card-img-holder text-white">
-                        <div className="card-body">
-                            <img src="/assets/images/dashboard/circle.svg" className="card-img-absolute"
-                                 alt="circle-image"/>
-                            <h4 className="font-weight-normal mb-3">New Leads This Week <i
-                                className="mdi mdi-calendar-text mdi-24px float-right"></i>
-                            </h4>
-                            <h2 className="mb-5">{state.weeklyLeads}</h2>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4 stretch-card grid-margin">
-                    <div className="card bg-green-gradient card-img-holder text-white">
-                        <div className="card-body">
-                            <img src="/assets/images/dashboard/circle.svg" className="card-img-absolute"
-                                 alt="circle-image"/>
-                            <h4 className="font-weight-normal mb-3">New Leads This Month <i
-                                className="mdi mdi-calendar-multiple-check mdi-24px float-right"></i>
-                            </h4>
-                            <h2 className="mb-5">{state.monthlyLeads}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>}
+            {/*<div className="row animated fadeIn">*/}
+            {/*    <div className="col-md-4 stretch-card grid-margin">*/}
+            {/*        <div className="card bg-danger card-img-holder text-white">*/}
+            {/*        <div className="card-body">*/}
+            {/*            <img src="/assets/images/dashboard/circle.svg" className="card-img-absolute" alt="circle-image"/>*/}
+            {/*            <h4 className="font-weight-normal mb-3">Total Leads <i className="mdi mdi-chart-line mdi-24px float-right"></i>*/}
+            {/*            </h4>*/}
+            {/*            <h2 className="mb-5">{state.totalLeads}</h2>*/}
+            {/*        </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*    <div className="col-md-4 stretch-card grid-margin">*/}
+            {/*        <div className="card bg-gradient-info card-img-holder text-white">*/}
+            {/*        <div className="card-body">*/}
+            {/*            <img src="/assets/images/dashboard/circle.svg" className="card-img-absolute" alt="circle-image" />*/}
+            {/*            <h4 className="font-weight-normal mb-3">New Leads This Week <i className="mdi mdi-calendar-text mdi-24px float-right"></i>*/}
+            {/*            </h4>*/}
+            {/*            <h2 className="mb-5">{state.weeklyLeads}</h2>*/}
+            {/*        </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*    <div className="col-md-4 stretch-card grid-margin">*/}
+            {/*        <div className="card bg-green-gradient card-img-holder text-white">*/}
+            {/*        <div className="card-body">*/}
+            {/*            <img src="/assets/images/dashboard/circle.svg" className="card-img-absolute" alt="circle-image" />*/}
+            {/*            <h4 className="font-weight-normal mb-3">New Leads This Month <i className="mdi mdi-calendar-multiple-check mdi-24px float-right"></i>*/}
+            {/*            </h4>*/}
+            {/*            <h2 className="mb-5">{state.monthlyLeads}</h2>*/}
+            {/*        </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             <div className="row">
               <div className="col-12 grid-margin">
                 <div className="card">
@@ -176,7 +170,7 @@ const Dashboard = (props) => {
                             </tr>
                             </thead>
                             <tbody>
-                                {showRecentLeads()}
+                                {/*{showRecentLeads()}*/}
                             </tbody>
                         </table>
                         </div>
@@ -209,4 +203,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(VoterDashboard)

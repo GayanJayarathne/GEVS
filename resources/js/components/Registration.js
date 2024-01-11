@@ -93,7 +93,13 @@ class Registration extends Component {
                         });
                 } else if (response.data.status == 'success') {
 
-                   window.location = "/home";
+
+                   window.location = "/login";
+                    Helpers.showSznNotification({
+                        type : 'success',
+                        message : 'success'
+                    });
+
                 }
             })
             .catch((error) => {

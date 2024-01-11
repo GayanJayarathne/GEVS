@@ -1,12 +1,17 @@
+import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
+
 require('../app');
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import '../variables'
-import Dashboard from '../components/Dashboard'
 import {createStore} from 'redux';
 import rootReducer from '../redux/reducers/index'
 import { Provider, useDispatch, useSelector } from 'react-redux'
 import rootAction from '../redux/actions/index'
+import VoterDashboard from "../components/voter/VoterDashboard";
+import LeadList from "../components/SznList/LeadList";
+import NewLead from "../components/SznList/NewLead";
+import EditLead from "../components/SznList/EditLead";
 
 //create reducer
 const myStore = createStore(
@@ -23,12 +28,24 @@ function App() {
     //get reducer
     const activeComponent = useSelector(state => state.activeComponentReducer);
 
-
-
     return (
         <React.Fragment>
-            <Dashboard/>
+            <BrowserRouter>
+                <div className="row">
+                    <div className="col-lg-12 grid-margin stretch-card">
+
+                        <Switch>
+                            <Route exact path='/voting-list' > <VoterDashboard/> </Route>
+                        </Switch>
+
+                    </div>
+                </div>
+            </BrowserRouter>
         </React.Fragment>
+
+        // <React.Fragment>
+        //     <VoterDashboard/>
+        // </React.Fragment>
     );
 }
 
