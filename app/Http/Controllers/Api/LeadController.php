@@ -13,18 +13,18 @@ class LeadController extends Controller
     public function listData(Request $request)
     {
         $user = User::where('api_token',$request['api_token'])->first();
-        
+
         $perPage = $request['per_page'];
         $sortBy = $request['sort_by'];
         $sortType = $request['sort_type'];
 
-        
+
         $leads = Lead::where('user_id', $user->id)->orderBy($sortBy, $sortType);
 
         if ($request['query'] != '') {
             $leads->where('name', 'like', '%' . $request['query'] . '%');
         }
-        
+
         return response()->json([
             'message' => $leads->paginate($perPage),
             'status' => 'success'
@@ -34,18 +34,12 @@ class LeadController extends Controller
     public function create(Request $request)
     {
         $user = User::where('api_token',$request['api_token'])->first();
-        
+
         $validate = Validator::make($request->all(), [
-            'name'        => 'required|string',
-            'email'       => 'required|email|unique:leads,email',
-            'phone'       => 'required|unique:leads,phone',
-            'address'     => '',
-            'description' => '',
-            'progress'    => 'numeric',
-            'status'      => 'numeric',
-            'earnings'    => 'numeric',
-            'expenses'    => 'numeric',
-            'net'         => 'numeric',
+            'name'            => 'required|string',
+            'party_id'        => 'required|numeric',
+            'constituency_id' => 'required|numeric',
+            'votes'           => 'numeric',
         ]);
 
         if ($validate->fails()) {
@@ -54,19 +48,13 @@ class LeadController extends Controller
                 'status' => 'validation-error'
             ], 401);
         }
-        
+
         $newLead = Lead::create([
-            'user_id'     => $user->id,
-            'name'        => $request['name'],
-            'email'       => $request['email'],
-            'phone'       => $request['phone'],
-            'address'     => $request['address'],
-            'description' => $request['description'],
-            'progress'    => $request['progress'],
-            'status'      => $request['status'],
-            'earnings'    => $request['earnings'],
-            'expenses'    => $request['expenses'],
-            'net'         => $request['net'],
+            'user_id'          => $user->id,
+            'name'             => $request['name'],
+            'party_id'         => $request['party_id'],
+            'constituency_id'  => $request['constituency_id'],
+            'votes'            => $request['votes'],
         ]);
 
         if ($newLead) {
@@ -97,7 +85,7 @@ class LeadController extends Controller
             ]);
         }
 
-        
+
         $validate = Validator::make($request->all(), [
             'name'        => 'required|string',
             'email'       => 'required|email|unique:leads,email,'.$lead->id.',id',
@@ -117,7 +105,7 @@ class LeadController extends Controller
                 'status' => 'validation-error'
             ], 401);
         }
-        
+
         $updateLead = $lead->update([
             'name'        => $request['name'],
             'email'       => $request['email'],
@@ -130,7 +118,7 @@ class LeadController extends Controller
             'expenses'    => $request['expenses'],
             'net'         => $request['net'],
         ]);
-        
+
         return response()->json([
             'message' => 'Lead successfully updated',
             'status' => 'success'
@@ -143,7 +131,7 @@ class LeadController extends Controller
         $lead = Lead::where('id',$request['lead_id'])
                         ->where('user_id', $user->id)
                         ->first();
-                     
+
         if (empty($lead)) {
             return response()->json([
                 'message' => 'Lead Not Found',
