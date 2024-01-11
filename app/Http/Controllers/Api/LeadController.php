@@ -37,8 +37,8 @@ class LeadController extends Controller
 
         $validate = Validator::make($request->all(), [
             'name'            => 'required|string',
-            'party_id'        => 'required|numeric',
-            'constituency_id' => 'required|numeric',
+            'party_id'        => 'numeric',
+            'constituency_id' => 'numeric',
             'votes'           => 'numeric',
         ]);
 
@@ -52,8 +52,8 @@ class LeadController extends Controller
         $newLead = Lead::create([
             'user_id'          => $user->id,
             'name'             => $request['name'],
-            'party_id'         => $request['party_id'],
-            'constituency_id'  => $request['constituency_id'],
+            'party_id'         => $request['party'],
+            'constituency_id'  => $request['constituency'],
             'votes'            => $request['votes'],
         ]);
 
