@@ -116,6 +116,46 @@ class LeadController extends Controller
         ]);
     }
 
+    public function updateVotes(Request $request)
+    {
+        $lead = Lead::where('id')
+            ->first();
+
+        if (empty($lead)) {
+            return response()->json([
+                'message' => 'Lead Not Found',
+                'status' => 'error'
+            ]);
+        }
+
+
+        $validate = Validator::make($request->all(), [
+            'name'            => 'required|string',
+            'party_id'        => 'numeric',
+            'constituency_id' => 'numeric',
+            'votes'           => 'numeric',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'message' => $validate->errors(),
+                'status' => 'validation-error'
+            ], 401);
+        }
+
+        $updateLead = $lead->update([
+            'name'             => $request['name'],
+            'party_id'         => $request['party'],
+            'constituency_id'  => $request['constituency'],
+            'votes'            => $lead->votes + 1,
+        ]);
+
+        return response()->json([
+            'message' => 'Lead successfully updated',
+            'status' => 'success'
+        ]);
+    }
+
     public function destroy(Request $request)
     {
         $user = User::where('api_token',$request['api_token'])->first();
