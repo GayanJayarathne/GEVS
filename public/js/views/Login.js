@@ -72491,7 +72491,12 @@ var App = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container-fluid page-body-wrapper full-page-wrapper"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "content-wrapper d-flex align-items-center auth"
+        className: "content-wrapper d-flex align-items-center auth",
+        style: {
+          backgroundImage: "url('./assets/images/background.jpg')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover"
+        }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row flex-grow"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

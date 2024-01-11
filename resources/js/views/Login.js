@@ -13,8 +13,10 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div className="container-scroller">
-              <div className="container-fluid page-body-wrapper full-page-wrapper">
-                  <div className="content-wrapper d-flex align-items-center auth">
+              <div className="container-fluid page-body-wrapper full-page-wrapper" >
+                  <div className="content-wrapper d-flex align-items-center auth" style={{backgroundImage: "url('./assets/images/background.jpg')",
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "cover"}}>
                       <div className="row flex-grow">
                           <div className="col-lg-4 mx-auto">
                               <div>

@@ -22,7 +22,7 @@ class HomeController extends Controller
         if($loggedUser->email==='election@shangrila.gov.sr'){ //1 is admin role
             return view('user.dashboard');
         }else{
-            return redirect(route('voter.index'));
+            return view('voter.index');
         }
     }
 
