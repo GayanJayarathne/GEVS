@@ -50,7 +50,7 @@ class LeadController extends Controller
         }
 
         $newLead = Lead::create([
-            'user_id'          => $user->id,
+//            'user_id'          => $user->id,
             'name'             => $request['name'],
             'party_id'         => $request['party'],
             'constituency_id'  => $request['constituency'],
