@@ -10,6 +10,7 @@ use App\Models\UVCCode;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Validator;
 
@@ -27,18 +28,22 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
-        $uvc = UVCCode::where('api_token',$request['api_token'])->first();
+//        $uvc = UVCCode::where('api_token',$request['api_token'])->first();
+//
+//        $validate1 = Lead::where('id',$request['user_id'])
+//                        ->where('uvc_code_id', $uvc->id)
+//                        ->first();
 
-        $validate1 = Lead::where('id',$request['user_id'])
-                        ->where('uvc_code_id', $uvc->id)
-                        ->first();
-
-        if (empty($validate1)) {
-            return response()->json([
-                'message' => 'Invalid UVC Number',
-                'status' => 'error'
-            ]);
-        }
+//        $uvcCode = DB::table('u_v_c_codes')
+//            ->whereNotNull('uvcCodeName')
+//            ->first();
+//
+//        if (empty($uvcCode)) {
+//            return response()->json([
+//                'message' => 'Invalid UVC Number',
+//                'status' => 'error'
+//            ],401);
+//        } else {
 
         $validate = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -47,6 +52,15 @@ class AuthController extends Controller
         ]);
 
         if ($validate->fails()) {
+            return response()->json([
+                'message' => $validate->errors(),
+                'status' => 'validation-error'
+            ], 401);
+        }
+        $uvcCode = DB::table('u_v_c_codes')
+            ->whereNotNull('uvcCodeName')
+            ->first();
+        if ($uvcCode->fails()) {
             return response()->json([
                 'message' => $validate->errors(),
                 'status' => 'validation-error'
@@ -72,7 +86,7 @@ class AuthController extends Controller
 
         $credentials = request(['email', 'password']);
 
-        if(!Auth::guard('users')->attempt($credentials))
+        if (!Auth::guard('users')->attempt($credentials))
             return response()->json([
                 'message' => 'Invalid email or password',
                 'status' => 'error'
