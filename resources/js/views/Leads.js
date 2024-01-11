@@ -25,38 +25,38 @@ function App() {
 
 	//get reducer
     const activeComponent = useSelector(state => state.activeComponentReducer);
-	
+
 	return (
 		<React.Fragment>
 			<BrowserRouter>
 			<div className="page-header">
 				<h3 className="page-title">
 					<span className="page-title-icon bg-gradient-primary text-white mr-2">
-						{ activeComponent && activeComponent == 'LeadList' ?  
-						<i className="mdi mdi-account-multiple"></i> : (activeComponent && activeComponent == 'NewLead' ? <i className="mdi mdi-account-plus"></i> : 
+						{ activeComponent && activeComponent == 'LeadList' ?
+						<i className="mdi mdi-account-multiple"></i> : (activeComponent && activeComponent == 'NewLead' ? <i className="mdi mdi-account-plus"></i> :
 						(activeComponent && activeComponent == 'EditLead' ? <i className="mdi mdi-folder-account"></i> : '' ) )
 					}
 					</span>
-				 	{ activeComponent && activeComponent == 'LeadList' ?  
-						'All Leads' : (activeComponent && activeComponent == 'NewLead' ? 'New Lead' : 
-						(activeComponent && activeComponent == 'EditLead' ? 'Edit Lead' : '' ) )
+				 	{ activeComponent && activeComponent == 'LeadList' ?
+						'All Candidates' : (activeComponent && activeComponent == 'NewLead' ? 'New Candidate' :
+						(activeComponent && activeComponent == 'EditLead' ? 'Edit Candidate' : '' ) )
 					}
 				</h3>
 				<nav aria-label="breadcrumb">
-					{ activeComponent && activeComponent != 'LeadList' ?  
+					{ activeComponent && activeComponent != 'LeadList' ?
 						<Link to='/lead/list' className="btn btn-social-icon-text btn-linkedin"><i className="mdi mdi-arrow-left-bold btn-icon-prepend"></i>&nbsp; Back</Link> : <Link to='/lead/new' className="btn btn-social-icon-text btn-linkedin"><i className="mdi mdi-account-plus btn-icon-prepend"></i>&nbsp; New</Link>
 					}
 				</nav>
 			</div>
 			<div className="row">
 				<div className="col-lg-12 grid-margin stretch-card">
-					
+
 						<Switch>
 							<Route exact path='/lead/list' > <LeadList /> </Route>
 							<Route path='/lead/new' > <NewLead /> </Route>
-							<Route path='/lead/edit/:id' component={EditLead} /> 
+							<Route path='/lead/edit/:id' component={EditLead} />
 						</Switch>
-					
+
 				</div>
 			</div>
 			</BrowserRouter>

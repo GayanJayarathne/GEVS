@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 function TopControl(props) {
-        
+
     return (
         <React.Fragment>
             <div className="pt-3 pb-3">
@@ -26,11 +26,9 @@ function TopControl(props) {
                                     <span className="input-group-text">Sort By</span>
                                 </div>
                                 <select className="form-control form-control-sm btn btn-success" disabled={props.isLoading ? true : false} defaultValue={props.sortBy} onChange={props.onChangeSortByHandle}>
-                                    <option value="created_at">Created</option>
+                                    <option value="created_at">Constituency</option>
                                     <option value="name">Name</option>
-                                    <option value="email">Email</option>
-                                    <option value="progress">Progress</option>
-                                    <option value="net">Net</option>
+                                    <option value="email">Vote</option>
                                 </select>
                                 <div className="input-group-append">
                                     <button disabled={props.isLoading ? true : false} className="bg-light btn btn-sm text-success" type="button" onClick={props.onClickSortTypeHandle}>

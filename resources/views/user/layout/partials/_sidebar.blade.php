@@ -22,7 +22,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#lead-routes" aria-expanded="false" aria-controls="lead-routes">
-                <span class="menu-title">Leads</span>
+                <span class="menu-title">Candidates</span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-account-multiple menu-icon"></i>
               </a>

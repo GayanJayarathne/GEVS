@@ -11,21 +11,13 @@ import { Link, useHistory } from 'react-router-dom';
 function NewLead(props) {
     const [state, setState] = useState({
         name: '',
-        email: '',
-        phone: '',
-        address: '',
-        progress: 0,
-        description: '',
-        status: 1,
-        earnings: 0.00,
-        expenses: 0.00,
-        net: 0.00,
+        constituency: '',
         loading: false,
         authUser: props.authUserProp
     });
-    
+
     let history = useHistory();
-    
+
     //validator
     const [, forceUpdate] = useState() //this is a dummy state, when form submitted, change the state so that message is rendered
     const simpleValidator = useRef(new SimpleReactValidator({
@@ -34,7 +26,7 @@ function NewLead(props) {
     }));
 
     useEffect(() => {
-        document.title = 'New Lead';
+        document.title = 'New Candidate';
 
         props.setActiveComponentProp('NewLead');
     }, []);
@@ -49,7 +41,7 @@ function NewLead(props) {
 
     const onSubmitHandle = (e) =>{
         e.preventDefault();
-        
+
         if (simpleValidator.current.allValid()) {
             setState({
                 ...state,
@@ -87,7 +79,7 @@ function NewLead(props) {
             })
             .catch((error) => {
                 console.log(error);
-                
+
                 setState({
                     ...state,
                     loading: false
@@ -107,7 +99,7 @@ function NewLead(props) {
                         type : 'error',
                         message : error.response.data.message
                     });
-                } 
+                }
             });
         } else {
             simpleValidator.current.showMessages();
@@ -139,7 +131,7 @@ function NewLead(props) {
                                     <div className="form-group">
                                         <ul className="nav nav-tabs nav-pills c--nav-pills nav-justified">
                                             <li className="nav-item">
-                                                <span className="nav-link btn btn-gradient-primary btn-block active">NEW LEAD</span>
+                                                <span className="nav-link btn btn-gradient-primary btn-block active">NEW CANDIDATE</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -151,115 +143,26 @@ function NewLead(props) {
                                                     <i className="mdi mdi-account"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" className="form-control form-control-sm" id="name" name="name" placeholder="Name" 
+                                            <input type="text" className="form-control form-control-sm" id="name" name="name" placeholder="Name"
                                             value={state.name} onChange={onChangeHandle}/>
                                         </div>
                                         {simpleValidator.current.message('name', state.name, 'required')}
                                     </div>
                                     <div className="form-group">
-                                        <label>Email</label>
-                                        <div className="input-group input-group-sm">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text bg-gradient-success text-white">
-                                                    <i className="mdi mdi-email"></i>
-                                                </span>
-                                            </div>
-                                            <input type="text" className="form-control form-control-sm" id="email" name="email" placeholder="Email" value={state.email} onChange={onChangeHandle}/>
-                                        </div>
-                                        {simpleValidator.current.message('email', state.email, 'required|email')}
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phone</label>
-                                        <div className="input-group input-group-sm">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text bg-gradient-success text-white">
-                                                    <i className="mdi mdi-phone"></i>
-                                                </span>
-                                            </div>
-                                            <input type="text" className="form-control form-control-sm" id="phone" name="phone" placeholder="Phone" value={state.phone} onChange={onChangeHandle}/>
-                                        </div>
-                                        {simpleValidator.current.message('phone', state.phone, 'required|phone')}
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Address</label>
+                                        <label>Constituency</label>
                                         <div className="input-group input-group-sm">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-gradient-success text-white">
                                                     <i className="mdi mdi-home"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" className="form-control form-control-sm" id="address" name="address" placeholder="Address" value={state.address} onChange={onChangeHandle}/>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Description</label>
-                                        <div className="input-group input-group-sm">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text bg-gradient-success text-white">
-                                                    <i className="mdi mdi-pencil"></i>
-                                                </span>
-                                            </div>
-                                            <textarea className="form-control form-control-sm" id="description" name="description" placeholder="Description" value={state.description} onChange={onChangeHandle}></textarea>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <hr />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Progress</label>
-                                        <div className="input-group input-group-sm">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text bg-gradient-success text-white">
-                                                    <i className="mdi mdi-music-note-whole"></i>
-                                                </span>
-                                            </div>
-                                            <input type="range" min="0" max="100" className="custom-range form-control form-control-sm" id="progress" name="progress" value={state.progress} onChange={onChangeHandle}/>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Earnings</label>
-                                        <div className="input-group input-group-sm">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text bg-gradient-success text-white">
-                                                    <i className="mdi mdi-currency-usd"></i>
-                                                </span>
-                                            </div>
-                                            <input type="number" className="form-control form-control-sm" id="earnings" name="earnings" placeholder="Earnings" value={state.earnings} onChange={onChangeHandle}/>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Expenses</label>
-                                        <div className="input-group input-group-sm">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text bg-gradient-success text-white">
-                                                    <i className="mdi mdi-cart-outline"></i>
-                                                </span>
-                                            </div>
-                                            <input type="number" className="form-control form-control-sm" id="expenses" name="expenses" placeholder="Expenses"value={state.expenses} onChange={onChangeHandle} />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Net</label>
-                                        <div className="input-group input-group-sm">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text bg-gradient-success text-white">
-                                                    <i className="mdi mdi-chart-arc"></i>
-                                                </span>
-                                            </div>
-                                            <input type="number" className="form-control form-control-sm" id="net" name="net" placeholder="Net"value={state.net} onChange={onChangeHandle} />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Status</label>
-                                        <div className="input-group input-group-sm">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text bg-gradient-success text-white">
-                                                    <i className="mdi mdi-clipboard-alert"></i>
-                                                </span>
-                                            </div>
-                                            <select className="form-control form-control-sm" id="status" name="status" value={state.status} onChange={onChangeHandle}>
-                                                <option value="1">Active</option>
-                                                <option value="0" >Inactive</option>
+                                            <select className="form-control form-control-sm" placeholder="Constituency" id="constituency" name="constituency" value={state.constituency} onChange={onChangeHandle}>
+                                                <option selected disabled value="">Constituency</option>
+                                                <option value="1">Shangri-la-Town</option>
+                                                <option value="2">Northern-Kunlun-Mountain</option>
+                                                <option value="3">Western-Shangri-la</option>
+                                                <option value="4">Naboo-Vallery</option>
+                                                <option value="5">New-Felucia</option>
                                             </select>
                                         </div>
                                     </div>
