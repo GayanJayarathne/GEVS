@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lead;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class VoterController extends Controller
@@ -11,6 +13,29 @@ class VoterController extends Controller
     {
         return view('voter.index');
     }
+
+    public function getDataByConstituency(Request $request)
+    {
+        $user = User::where('api_token',$request['api_token'])->first();
+
+        $perPage = $request['per_page'];
+        $sortBy = $request['sort_by'];
+        $sortType = $request['sort_type'];
+
+
+        $leads = Lead::where('constituency_id', $user->constituency_id)->orderBy('created_at', 'desc');
+//        $leads = Lead::orderBy($sortBy, $sortType);
+
+        if ($request['query'] != '') {
+            $leads->where('name', 'like', '%' . $request['query'] . '%');
+        }
+
+        return response()->json([
+            'message' => $leads->paginate($perPage),
+            'status' => 'success'
+        ]);
+    }
+
 //    public function __construct() {
 //        $this->middleware('auth');
 //    }
