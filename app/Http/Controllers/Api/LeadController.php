@@ -143,7 +143,7 @@ class LeadController extends Controller
             ], 401);
         }
 
-        $updateLead = $lead->update([
+        $updateLead = $lead->updateVotes([
             'name'             => $request['name'],
             'party_id'         => $request['party'],
             'constituency_id'  => $request['constituency'],
