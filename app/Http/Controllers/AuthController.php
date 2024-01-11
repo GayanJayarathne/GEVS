@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use phpDocumentor\Reflection\Types\Boolean;
 use Validator;
 
 class AuthController extends Controller
@@ -103,9 +104,12 @@ class AuthController extends Controller
                 'status' => 'error'
             ], 401);
         $user = $request->user();
+        $userEmail = $user->email;
+        $is_admin = ($userEmail == 'election@shangrila.gov.sr');
 
         return response()->json([
             'message' => $user->api_token,
+            'admin' => $is_admin,
             'status' => 'success'
         ], 201);
     }
