@@ -17,4 +17,13 @@ class Lead extends Model
     {
         return $this->hasOne('App\Models\User', 'id', 'user_id');
     }
+
+    public function updateVotes(array $data)
+    {
+        // Update the votes and any other fields as needed
+        $this->update([
+            'name'  => $data['name'],
+            'votes' => $data['votes'],
+        ]);
+    }
 }

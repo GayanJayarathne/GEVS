@@ -60,7 +60,7 @@ class LeadController extends Controller
 
         if ($newLead) {
             return response()->json([
-                'message' => 'Lead successfully saved',
+                'message' => 'Candidate successfully saved',
                 'status' => 'success'
             ]);
         } else {
@@ -83,7 +83,7 @@ class LeadController extends Controller
 
         if (empty($lead)) {
             return response()->json([
-                'message' => 'Lead Not Found',
+                'message' => 'Candidate Not Found',
                 'status' => 'error'
             ]);
         }
@@ -111,7 +111,7 @@ class LeadController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Lead successfully updated',
+            'message' => 'Candidate successfully updated',
             'status' => 'success'
         ]);
     }
@@ -123,30 +123,26 @@ class LeadController extends Controller
 
         if (empty($lead)) {
             return response()->json([
-                'message' => 'UserId Not Found',
+                'message' => 'CandidateId Not Found',
                 'status' => 'error'
             ]);
         }
 
 
-        $validate = Validator::make($request->all(), [
-            'name'            => 'required|string',
-            'party_id'        => 'numeric',
-            'constituency_id' => 'numeric',
-            'votes'           => 'numeric',
-        ]);
+//        $validate = Validator::make($request->all(), [
+//            'name'            => 'required|string',
+//            'votes'           => 'numeric'
+//        ]);
 
-        if ($validate->fails()) {
-            return response()->json([
-                'message' => $validate->errors(),
-                'status' => 'validation-error'
-            ], 401);
-        }
+//        if ($validate->fails()) {
+//            return response()->json([
+//                'message' => $validate->errors(),
+//                'status' => 'validation-error'
+//            ], 401);
+//        }
 
-        $updateLead = $lead->updateVotes([
-            'name'             => $request['name'],
-            'party_id'         => $request['party'],
-            'constituency_id'  => $request['constituency'],
+        $updateVotes = $lead->updateVotes([
+            'name'             => $lead->name,
             'votes'            => $lead->votes + 1,
         ]);
 
@@ -165,7 +161,7 @@ class LeadController extends Controller
 
         if (empty($lead)) {
             return response()->json([
-                'message' => 'Lead Not Found',
+                'message' => 'Candidate Not Found',
                 'status' => 'error'
             ]);
         }
@@ -174,7 +170,7 @@ class LeadController extends Controller
 
         if ($deleteLead) {
             return response()->json([
-                'message' => 'Lead successfully deleted',
+                'message' => 'Candidate successfully deleted',
                 'status' => 'success'
             ]);
         } else {
