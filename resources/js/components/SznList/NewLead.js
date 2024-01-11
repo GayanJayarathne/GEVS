@@ -12,6 +12,7 @@ function NewLead(props) {
     const [state, setState] = useState({
         name: '',
         constituency: '',
+        party: '',
         loading: false,
         authUser: props.authUserProp
     });
@@ -163,6 +164,23 @@ function NewLead(props) {
                                                 <option value="3">Western-Shangri-la</option>
                                                 <option value="4">Naboo-Vallery</option>
                                                 <option value="5">New-Felucia</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Party</label>
+                                        <div className="input-group input-group-sm">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text bg-gradient-success text-white">
+                                                    <i className="mdi mdi-home"></i>
+                                                </span>
+                                            </div>
+                                            <select className="form-control form-control-sm" placeholder="Party" id="party" name="party" value={state.party} onChange={onChangeHandle}>
+                                                <option selected disabled value="">Party</option>
+                                                <option value="1">Blue Party</option>
+                                                <option value="2">Red Party</option>
+                                                <option value="3">Yellow Party</option>
+                                                <option value="4">Independent</option>
                                             </select>
                                         </div>
                                     </div>
