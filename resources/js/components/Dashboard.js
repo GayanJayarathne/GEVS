@@ -32,7 +32,11 @@ const Dashboard = (props) => {
         // }
 
         props.setActiveComponentProp('Dashboard');
-        loadData();
+        if(authUser.email === "election@shangrila.gov.sr") {
+            loadData();
+        }else{
+            loadVoterData();
+        }
     }, []);
 
     const loadData = () => {
@@ -64,21 +68,85 @@ const Dashboard = (props) => {
         });
     };
 
+    const loadVoterData = () => {
+        setState({
+            ...state,
+            loading: true
+        });
+        axios.get(state.authUser.email === "election@shangrila.gov.sr"?'/api/v1/dashboard-data?':'/api/v1/candidate/constituency-list?', {
+            params: {
+                api_token: state.authUser.api_token,
+            }
+        })
+        .then(response => {
+            setState({
+                ...state,
+                loading: false,
+                totalLeads: response.data.message.totalLeads,
+                weeklyLeads: response.data.message.weeklyLeads,
+                monthlyLeads: response.data.message.monthlyLeads,
+                recentLeads: response.data.message.data,
+            })
+        })
+        .catch((error) => {
+            setState({
+                ...state,
+                loading: false
+            });
+            console.log(error);
+        });
+    };
+
+    const onVoteHandle = (id,name) => {
+        axios.post('/api/v1/lead/updateVotes', {
+            id:id,
+            name:name,
+            api_token: state.authUser.api_token,
+        }).catch((error) => {
+            setState({
+                ...state,
+                loading: false
+            });
+            console.log(error);
+        });
+    }
+
     const showRecentLeads = () => {
-        return state.recentLeads.length == 0 ? <tr><td className="text-muted lead">No Recent Lead</td></tr> :
-                state.recentLeads.map((lead, i) => {
-                    return <tr key={i}>
-                                <td>
-                                    <img src="/assets/images/faces/face1.jpg" className="mr-2" alt="image"/> {lead.name} </td>
-                                <td> {renderConstituency(lead.constituency_id)} </td>
-                                <td> {renderParty(lead.party_id)} </td>
-                                <td>
-                                    <div className="progress">
-                                        <div className="progress-bar bg-gradient-success" role="progressbar" style={{width: lead.votes?lead.votes:0+'%'}} aria-valuenow={lead.votes?lead.votes:0} aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                            </tr>;
-                });
+        if(state.recentLeads){
+            if(state.recentLeads.length > 0){
+                return (
+                    state.recentLeads.map((lead, i) => {
+                        return <tr key={i}>
+                            <td>
+                                <img src="/assets/images/faces/face1.jpg" className="mr-2" alt="image"/> {lead.name} </td>
+                            <td> {renderConstituency(lead.constituency_id)} </td>
+                            <td> {renderParty(lead.party_id)} </td>
+                            <td>
+                                {authUser.email === "election@shangrila.gov.sr"?
+                                <div className="progress">
+                                    <div className="progress-bar bg-gradient-success" role="progressbar"
+                                          style={{width: lead.votes ? lead.votes : 0 + '%'}}
+                                          aria-valuenow={lead.votes ? lead.votes : 0} aria-valuemin="0"
+                                          aria-valuemax="100"></div>
+                                </div>:
+                                    <button type="button" className="btn btn-danger btn-sm btn-upper" onClick={() => onVoteHandle(lead?.id,lead?.name)}>Vote
+                                    </button>
+                                }
+                            </td>
+                        </tr>;
+                    })
+                )
+
+            }else{
+                return (
+                    <tr><td className="text-muted lead">No Recent Lead</td></tr>
+                )
+            }
+        }else{
+            return (
+                <tr><td className="text-muted lead">No Recent Lead</td></tr>
+            )
+        }
     };
 
     const renderConstituency = (Id) => {

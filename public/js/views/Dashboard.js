@@ -65857,7 +65857,12 @@ var Dashboard = function Dashboard(props) {
     //     });
     // }
     props.setActiveComponentProp('Dashboard');
-    loadData();
+
+    if (authUser.email === "election@shangrila.gov.sr") {
+      loadData();
+    } else {
+      loadVoterData();
+    }
   }, []);
 
   var loadData = function loadData() {
@@ -65884,29 +65889,82 @@ var Dashboard = function Dashboard(props) {
     });
   };
 
-  var showRecentLeads = function showRecentLeads() {
-    return state.recentLeads.length == 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-      className: "text-muted lead"
-    }, "No Recent Lead")) : state.recentLeads.map(function (lead, i) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
-        key: i
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "/assets/images/faces/face1.jpg",
-        className: "mr-2",
-        alt: "image"
-      }), " ", lead.name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", renderConstituency(lead.constituency_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", renderParty(lead.party_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "progress"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "progress-bar bg-gradient-success",
-        role: "progressbar",
-        style: {
-          width: lead.votes ? lead.votes : 0 + '%'
-        },
-        "aria-valuenow": lead.votes ? lead.votes : 0,
-        "aria-valuemin": "0",
-        "aria-valuemax": "100"
-      }))));
+  var loadVoterData = function loadVoterData() {
+    setState(_objectSpread({}, state, {
+      loading: true
+    }));
+    axios.get(state.authUser.email === "election@shangrila.gov.sr" ? '/api/v1/dashboard-data?' : '/api/v1/candidate/constituency-list?', {
+      params: {
+        api_token: state.authUser.api_token
+      }
+    }).then(function (response) {
+      setState(_objectSpread({}, state, {
+        loading: false,
+        totalLeads: response.data.message.totalLeads,
+        weeklyLeads: response.data.message.weeklyLeads,
+        monthlyLeads: response.data.message.monthlyLeads,
+        recentLeads: response.data.message.data
+      }));
+    })["catch"](function (error) {
+      setState(_objectSpread({}, state, {
+        loading: false
+      }));
+      console.log(error);
     });
+  };
+
+  var onVoteHandle = function onVoteHandle(id, name) {
+    axios.post('/api/v1/lead/updateVotes', {
+      id: id,
+      name: name,
+      api_token: state.authUser.api_token
+    })["catch"](function (error) {
+      setState(_objectSpread({}, state, {
+        loading: false
+      }));
+      console.log(error);
+    });
+  };
+
+  var showRecentLeads = function showRecentLeads() {
+    if (state.recentLeads) {
+      if (state.recentLeads.length > 0) {
+        return state.recentLeads.map(function (lead, i) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+            key: i
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: "/assets/images/faces/face1.jpg",
+            className: "mr-2",
+            alt: "image"
+          }), " ", lead.name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", renderConstituency(lead.constituency_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", renderParty(lead.party_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, authUser.email === "election@shangrila.gov.sr" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress-bar bg-gradient-success",
+            role: "progressbar",
+            style: {
+              width: lead.votes ? lead.votes : 0 + '%'
+            },
+            "aria-valuenow": lead.votes ? lead.votes : 0,
+            "aria-valuemin": "0",
+            "aria-valuemax": "100"
+          })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            type: "button",
+            className: "btn btn-danger btn-sm btn-upper",
+            onClick: function onClick() {
+              return onVoteHandle(lead === null || lead === void 0 ? void 0 : lead.id, lead === null || lead === void 0 ? void 0 : lead.name);
+            }
+          }, "Vote")));
+        });
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "text-muted lead"
+        }, "No Recent Lead"));
+      }
+    } else {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "text-muted lead"
+      }, "No Recent Lead"));
+    }
   };
 
   var renderConstituency = function renderConstituency(Id) {

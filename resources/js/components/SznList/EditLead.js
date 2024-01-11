@@ -13,15 +13,8 @@ function EditLead(props) {
     const [state, setState] = useState({
         lead: props.location.state.lead ? props.location.state.lead : '',
         name: props.location.state.lead.name ? props.location.state.lead.name : '',
-        email: props.location.state.lead.email ? props.location.state.lead.email : '',
-        phone: props.location.state.lead.phone ? props.location.state.lead.phone : '',
-        address: props.location.state.lead.address ? props.location.state.lead.address : '',
-        progress: props.location.state.lead.progress ? props.location.state.lead.progress : 0,
-        description: props.location.state.lead.description ? props.location.state.lead.description : '',
-        status: props.location.state.lead.status,
-        earnings: props.location.state.lead.earnings ? props.location.state.lead.earnings : 0,
-        expenses: props.location.state.lead.expenses ? props.location.state.lead.expenses : 0,
-        net: props.location.state.lead.net ? props.location.state.lead.net : 0,
+        constituency: props.location.state.lead.constituency_id ? props.location.state.lead.constituency_id : '',
+        party: props.location.state.lead.party_id ? props.location.state.lead.party_id : '',
         loading: false,
         authUser: props.authUserProp
     });
@@ -139,7 +132,7 @@ function EditLead(props) {
                                 >
                                     <form className="edit-lead-form border" onSubmit={onSubmitHandle}>
                                         <input type="hidden" name="api_token" value={state.authUser.api_token} />
-                                        <input type="hidden" name="lead_id" value={state.lead.id} />
+                                        <input type="hidden" name="id" value={state.lead.id} />
                                         <div className="form-group">
                                             <ul className="nav nav-tabs nav-pills c--nav-pills nav-justified">
                                                 <li className="nav-item">
@@ -177,7 +170,24 @@ function EditLead(props) {
                                                     <option value="5">New-Felucia</option>
                                                 </select>
                                             </div>
-                                            {simpleValidator.current.message('email', state.email, 'required|email')}
+                                            {/*{simpleValidator.current.message('email', state.email, 'required|email')}*/}
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Party</label>
+                                            <div className="input-group input-group-sm">
+                                                <div className="input-group-prepend">
+                                                <span className="input-group-text bg-gradient-success text-white">
+                                                    <i className="mdi mdi-home"></i>
+                                                </span>
+                                                </div>
+                                                <select className="form-control form-control-sm" placeholder="Party" id="party" name="party" value={state.party} onChange={onChangeHandle}>
+                                                    <option selected disabled value="">Party</option>
+                                                    <option value="1">Blue Party</option>
+                                                    <option value="2">Red Party</option>
+                                                    <option value="3">Yellow Party</option>
+                                                    <option value="4">Independent</option>
+                                                </select>
+                                            </div>
                                         </div>
                                         <div className="form-group text-center">
                                             <button type="submit" className="btn btn-gradient-primary btn-md mr-2">Update</button>

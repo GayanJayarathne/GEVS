@@ -92966,15 +92966,8 @@ function EditLead(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     lead: props.location.state.lead ? props.location.state.lead : '',
     name: props.location.state.lead.name ? props.location.state.lead.name : '',
-    email: props.location.state.lead.email ? props.location.state.lead.email : '',
-    phone: props.location.state.lead.phone ? props.location.state.lead.phone : '',
-    address: props.location.state.lead.address ? props.location.state.lead.address : '',
-    progress: props.location.state.lead.progress ? props.location.state.lead.progress : 0,
-    description: props.location.state.lead.description ? props.location.state.lead.description : '',
-    status: props.location.state.lead.status,
-    earnings: props.location.state.lead.earnings ? props.location.state.lead.earnings : 0,
-    expenses: props.location.state.lead.expenses ? props.location.state.lead.expenses : 0,
-    net: props.location.state.lead.net ? props.location.state.lead.net : 0,
+    constituency: props.location.state.lead.constituency_id ? props.location.state.lead.constituency_id : '',
+    party: props.location.state.lead.party_id ? props.location.state.lead.party_id : '',
     loading: false,
     authUser: props.authUserProp
   }),
@@ -93099,7 +93092,7 @@ function EditLead(props) {
     value: state.authUser.api_token
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "hidden",
-    name: "lead_id",
+    name: "id",
     value: state.lead.id
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
@@ -93158,7 +93151,36 @@ function EditLead(props) {
     value: "4"
   }, "Naboo-Vallery"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
     value: "5"
-  }, "New-Felucia"))), simpleValidator.current.message('email', state.email, 'required|email')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "New-Felucia")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Party"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group input-group-sm"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group-prepend"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "input-group-text bg-gradient-success text-white"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "mdi mdi-home"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    className: "form-control form-control-sm",
+    placeholder: "Party",
+    id: "party",
+    name: "party",
+    value: state.party,
+    onChange: onChangeHandle
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    selected: true,
+    disabled: true,
+    value: ""
+  }, "Party"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "1"
+  }, "Blue Party"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "2"
+  }, "Red Party"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "3"
+  }, "Yellow Party"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "4"
+  }, "Independent")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group text-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "submit",

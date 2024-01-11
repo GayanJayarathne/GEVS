@@ -78,7 +78,7 @@ class LeadController extends Controller
 //        $lead = Lead::where('id',$request['lead_id'])
 //                        ->where('user_id', $user->id)
 //                        ->first();
-        $lead = Lead::where('id')
+        $lead = Lead::where('id',$request['id'])
                         ->first();
 
         if (empty($lead)) {
@@ -118,7 +118,7 @@ class LeadController extends Controller
 
     public function updateVotes(Request $request)
     {
-        $lead = Lead::where('id')
+        $lead = Lead::where('id',$request['id'])
             ->first();
 
         if (empty($lead)) {
