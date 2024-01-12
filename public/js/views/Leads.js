@@ -94308,10 +94308,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var ConstituenciesResultList = function ConstituenciesResultList(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     authUser: props.authUserProp,
-    totalLeads: 0,
-    weeklyLeads: 0,
-    monthlyLeads: 0,
-    recentLeads: [],
+    consResult: [],
     loading: false
   }),
       _useState2 = _slicedToArray(_useState, 2),
@@ -94340,17 +94337,14 @@ var ConstituenciesResultList = function ConstituenciesResultList(props) {
     setState(_objectSpread({}, state, {
       loading: true
     }));
-    axios.get('/api/v1/dashboard-data', {
+    axios.get('/api/v1/constituency/results', {
       params: {
         api_token: state.authUser.api_token
       }
     }).then(function (response) {
       setState(_objectSpread({}, state, {
         loading: false,
-        totalLeads: response.data.message.totalLeads,
-        weeklyLeads: response.data.message.weeklyLeads,
-        monthlyLeads: response.data.message.monthlyLeads,
-        recentLeads: response.data.message.recentLeads
+        consResult: response.data.result
       }));
     })["catch"](function (error) {
       setState(_objectSpread({}, state, {
@@ -94360,38 +94354,27 @@ var ConstituenciesResultList = function ConstituenciesResultList(props) {
     });
   };
 
-  var showRecentLeads = function showRecentLeads() {
-    if (state.recentLeads) {
-      if (state.recentLeads.length > 0) {
-        return state.recentLeads.map(function (lead, i) {
+  var showRecentLeads = function showRecentLeads(data) {
+    if (data) {
+      if (data.length > 0) {
+        return data.map(function (lead, i) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
             key: i
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
             src: "/assets/images/faces/face1.jpg",
             className: "mr-2",
             alt: "image"
-          }), " ", lead.name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", renderParty(lead.party_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "progress"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "progress-bar bg-gradient-success",
-            role: "progressbar",
-            style: {
-              width: lead.votes ? lead.votes : 0 + '%'
-            },
-            "aria-valuenow": lead.votes ? lead.votes : 0,
-            "aria-valuemin": "0",
-            "aria-valuemax": "100"
-          }))));
+          }), " ", lead.candidate_name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", lead.party_name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, lead.votes));
         });
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           className: "text-muted lead"
-        }, "No Recent Lead"));
+        }, "No Result"));
       }
     } else {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
         className: "text-muted lead"
-      }, "No Recent Lead"));
+      }, "No Result"));
     }
   };
 
@@ -94430,17 +94413,23 @@ var ConstituenciesResultList = function ConstituenciesResultList(props) {
     }
   };
 
+  var constituencyList = ['constituency1', 'constituency2', 'constituency3', 'constituency4', 'constituency5'];
+
+  var renderTable = function renderTable(item, title) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      className: "card-title"
+    }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "table-responsive"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+      className: "table"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Name "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Party "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Votes "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, showRecentLeads(item === null || item === void 0 ? void 0 : item.data)))));
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-body animated fadeIn"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-    className: "card-title"
-  }, "Results By Constituencies"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "table-responsive"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
-    className: "table"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Name "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Party "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Votes "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, showRecentLeads()))))));
+  }, renderTable(state.consResult.constituency1, "Shangri-la-Town"), renderTable(state.consResult.constituency2, "Northern-Kunlun-Mountain"), renderTable(state.consResult.constituency3, "Western-Shangri-la"), renderTable(state.consResult.constituency4, "Naboo-Vallery"), renderTable(state.consResult.constituency5, "New-Felucia"))));
 }; //redux state can be accessed as props in this component(Optional)
 
 

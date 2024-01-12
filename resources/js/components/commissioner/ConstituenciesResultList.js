@@ -8,10 +8,7 @@ const ConstituenciesResultList = (props) => {
 
     const [state, setState] = useState({
         authUser: props.authUserProp,
-        totalLeads: 0,
-        weeklyLeads: 0,
-        monthlyLeads: 0,
-        recentLeads: [],
+        consResult: [],
         loading: false,
     });
 
@@ -40,7 +37,7 @@ const ConstituenciesResultList = (props) => {
             ...state,
             loading: true
         });
-        axios.get('/api/v1/dashboard-data', {
+        axios.get('/api/v1/constituency/results', {
             params: {
                 api_token: state.authUser.api_token,
             }
@@ -49,10 +46,7 @@ const ConstituenciesResultList = (props) => {
                 setState({
                     ...state,
                     loading: false,
-                    totalLeads: response.data.message.totalLeads,
-                    weeklyLeads: response.data.message.weeklyLeads,
-                    monthlyLeads: response.data.message.monthlyLeads,
-                    recentLeads: response.data.message.recentLeads,
+                    consResult: response.data.result,
                 })
             })
             .catch((error) => {
@@ -64,23 +58,24 @@ const ConstituenciesResultList = (props) => {
             });
     };
 
-    const showRecentLeads = () => {
-        if(state.recentLeads){
-            if(state.recentLeads.length > 0){
+    const showRecentLeads = (data) => {
+        if(data){
+            if(data.length > 0){
                 return (
-
-                    state.recentLeads.map((lead, i) => {
+                    data.map((lead, i) => {
                         return <tr key={i}>
                             <td>
-                                <img src="/assets/images/faces/face1.jpg" className="mr-2" alt="image"/> {lead.name} </td>
-                            <td> {renderParty(lead.party_id)} </td>
+                                <img src="/assets/images/faces/face1.jpg" className="mr-2" alt="image"/> {lead.candidate_name
+                            } </td>
+                            <td> {lead.party_name} </td>
                             <td>
-                                    <div className="progress">
-                                        <div className="progress-bar bg-gradient-success" role="progressbar"
-                                             style={{width: lead.votes ? lead.votes : 0 + '%'}}
-                                             aria-valuenow={lead.votes ? lead.votes : 0} aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
+                                    {/*<div className="progress">*/}
+                                    {/*    <div className="progress-bar bg-gradient-success" role="progressbar"*/}
+                                    {/*         style={{width: lead.votes ? lead.votes : 0 + '%'}}*/}
+                                    {/*         aria-valuenow={lead.votes ? lead.votes : 0} aria-valuemin="0"*/}
+                                    {/*         aria-valuemax="100"></div>*/}
+                                    {/*</div>*/}
+                                {lead.votes}
                             </td>
                         </tr>;
                     })
@@ -88,12 +83,12 @@ const ConstituenciesResultList = (props) => {
 
             }else{
                 return (
-                    <tr><td className="text-muted lead">No Recent Lead</td></tr>
+                    <tr><td className="text-muted lead">No Result</td></tr>
                 )
             }
         }else{
             return (
-                <tr><td className="text-muted lead">No Recent Lead</td></tr>
+                <tr><td className="text-muted lead">No Result</td></tr>
             )
         }
     };
@@ -128,25 +123,64 @@ const ConstituenciesResultList = (props) => {
         }
     }
 
+    let constituencyList = [
+        'constituency1',
+        'constituency2',
+        'constituency3',
+        'constituency4',
+        'constituency5',
+    ]
+
+
+
+
+    const renderTable = (item,title) => {
+
+            return (
+                <>
+                    <h4 className="card-title">{title}</h4>
+                    <div className="table-responsive">
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th> Name </th>
+                                <th> Party </th>
+                                <th> Votes </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {showRecentLeads(item?.data)}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
+            )
+    }
+
     return (
         <React.Fragment>
                     <div className="card">
                         <div className="card-body animated fadeIn">
-                            <h4 className="card-title">Results By Constituencies</h4>
-                            <div className="table-responsive">
-                                <table className="table">
-                                    <thead>
-                                    <tr>
-                                        <th> Name </th>
-                                        <th> Party </th>
-                                        <th> Votes </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {showRecentLeads()}
-                                    </tbody>
-                                </table>
-                            </div>
+                            {renderTable(state.consResult.constituency1,"Shangri-la-Town")}
+                            {renderTable(state.consResult.constituency2,"Northern-Kunlun-Mountain")}
+                            {renderTable(state.consResult.constituency3,"Western-Shangri-la")}
+                            {renderTable(state.consResult.constituency4,"Naboo-Vallery")}
+                            {renderTable(state.consResult.constituency5,"New-Felucia")}
+                            {/*<h4 className="card-title">{"item"}</h4>*/}
+                            {/*<div className="table-responsive">*/}
+                            {/*    <table className="table">*/}
+                            {/*        <thead>*/}
+                            {/*        <tr>*/}
+                            {/*            <th> Name </th>*/}
+                            {/*            <th> Party </th>*/}
+                            {/*            <th> Votes </th>*/}
+                            {/*        </tr>*/}
+                            {/*        </thead>*/}
+                            {/*        <tbody>*/}
+                            {/*        {showRecentLeads(result?.data)}*/}
+                            {/*        </tbody>*/}
+                            {/*    </table>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
         </React.Fragment>
