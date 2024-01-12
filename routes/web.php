@@ -40,6 +40,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/voting-list', 'HomeController@index')->name('VoterDashboard');
 
     //react route
+    Route::get('/result/constituency-list', 'ResultsController@index')->name('ConstituenciesResultList');
+    Route::get('/result/final', 'ResultsController@index')->name('FinalResult');
+
     Route::get('/lead/list', 'LeadController@index')->name('Leads');
     Route::get('/lead/new', 'LeadController@index')->name('NewLead');
     Route::get('/lead/edit/{id}', 'LeadController@index')->name('EditLead');

@@ -94264,6 +94264,418 @@ function TopControl(props) {
 
 /***/ }),
 
+/***/ "./resources/js/components/commissioner/ConstituenciesResultList.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/commissioner/ConstituenciesResultList.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var animate_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! animate.css */ "./node_modules/animate.css/animate.css");
+/* harmony import */ var animate_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(animate_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! iziToast/dist/css/iziToast.css */ "./node_modules/iziToast/dist/css/iziToast.css");
+/* harmony import */ var iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../redux/actions */ "./resources/js/redux/actions/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var ConstituenciesResultList = function ConstituenciesResultList(props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    authUser: props.authUserProp,
+    totalLeads: 0,
+    weeklyLeads: 0,
+    monthlyLeads: 0,
+    recentLeads: [],
+    loading: false
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    // if (typeof window !== "undefined") {
+    //     const iziToast = require('iziToast');
+    //
+    //     iziToast.show({
+    //         timeout: 0,
+    //         progressBar: false,
+    //         displayMode: 'once',
+    //         theme: 'light',
+    //         id: 'star-notification',
+    //         title: '<a target="_blank" rel="noopener noreferrer" href="https://github.com/arifszn/react-laravel"><img src="https://img.shields.io/github/stars/arifszn/react-laravel?style=social" alt="Github Star"/></a>',
+    //         message: 'We need your support. Please ⭐️ on <a target="_blank" rel="noopener noreferrer" href="https://github.com/arifszn/react-laravel">GitHub</a> to help us increase.'
+    //     });
+    // }
+    props.setActiveComponentProp('ConstituenciesResultList');
+    loadData();
+  }, []);
+
+  var loadData = function loadData() {
+    setState(_objectSpread({}, state, {
+      loading: true
+    }));
+    axios.get('/api/v1/dashboard-data', {
+      params: {
+        api_token: state.authUser.api_token
+      }
+    }).then(function (response) {
+      setState(_objectSpread({}, state, {
+        loading: false,
+        totalLeads: response.data.message.totalLeads,
+        weeklyLeads: response.data.message.weeklyLeads,
+        monthlyLeads: response.data.message.monthlyLeads,
+        recentLeads: response.data.message.recentLeads
+      }));
+    })["catch"](function (error) {
+      setState(_objectSpread({}, state, {
+        loading: false
+      }));
+      console.log(error);
+    });
+  };
+
+  var showRecentLeads = function showRecentLeads() {
+    if (state.recentLeads) {
+      if (state.recentLeads.length > 0) {
+        return state.recentLeads.map(function (lead, i) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+            key: i
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: "/assets/images/faces/face1.jpg",
+            className: "mr-2",
+            alt: "image"
+          }), " ", lead.name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", renderParty(lead.party_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress-bar bg-gradient-success",
+            role: "progressbar",
+            style: {
+              width: lead.votes ? lead.votes : 0 + '%'
+            },
+            "aria-valuenow": lead.votes ? lead.votes : 0,
+            "aria-valuemin": "0",
+            "aria-valuemax": "100"
+          }))));
+        });
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "text-muted lead"
+        }, "No Recent Lead"));
+      }
+    } else {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "text-muted lead"
+      }, "No Recent Lead"));
+    }
+  };
+
+  var renderConstituency = function renderConstituency(Id) {
+    switch (Id) {
+      case "1":
+        return "Shangri-la-Town";
+
+      case "2":
+        return "Northern-Kunlun-Mountain";
+
+      case "3":
+        return "Western-Shangri-la";
+
+      case "4":
+        return "Naboo-Vallery";
+
+      case "5":
+        return "New-Felucia";
+    }
+  };
+
+  var renderParty = function renderParty(Id) {
+    switch (Id) {
+      case "1":
+        return "Blue Party";
+
+      case "2":
+        return "Red Party";
+
+      case "3":
+        return "Yellow Party";
+
+      case "4":
+        return "Independent";
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body animated fadeIn"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    className: "card-title"
+  }, "Results By Constituencies"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "table-responsive"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+    className: "table"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Name "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Party "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Votes "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, showRecentLeads()))))));
+}; //redux state can be accessed as props in this component(Optional)
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    authUserProp: state.authUserReducer,
+    activeComponentProp: state.activeComponentReducer
+  };
+};
+/**
+ * redux state can be change by calling 'props.setAuthUserProp('demo user');' when
+ * applicable(Optional to )
+ *
+ */
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setAuthUserProp: function setAuthUserProp(user) {
+      return dispatch(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["default"].setAuthUser(user));
+    },
+    setActiveComponentProp: function setActiveComponentProp(component) {
+      return dispatch(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["default"].setActiveComponent(component));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(ConstituenciesResultList));
+
+/***/ }),
+
+/***/ "./resources/js/components/commissioner/FinalResult.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/commissioner/FinalResult.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var animate_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! animate.css */ "./node_modules/animate.css/animate.css");
+/* harmony import */ var animate_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(animate_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! iziToast/dist/css/iziToast.css */ "./node_modules/iziToast/dist/css/iziToast.css");
+/* harmony import */ var iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../redux/actions */ "./resources/js/redux/actions/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var ConstituenciesResultList = function ConstituenciesResultList(props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    authUser: props.authUserProp,
+    totalLeads: 0,
+    weeklyLeads: 0,
+    monthlyLeads: 0,
+    recentLeads: [],
+    loading: false
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    // if (typeof window !== "undefined") {
+    //     const iziToast = require('iziToast');
+    //
+    //     iziToast.show({
+    //         timeout: 0,
+    //         progressBar: false,
+    //         displayMode: 'once',
+    //         theme: 'light',
+    //         id: 'star-notification',
+    //         title: '<a target="_blank" rel="noopener noreferrer" href="https://github.com/arifszn/react-laravel"><img src="https://img.shields.io/github/stars/arifszn/react-laravel?style=social" alt="Github Star"/></a>',
+    //         message: 'We need your support. Please ⭐️ on <a target="_blank" rel="noopener noreferrer" href="https://github.com/arifszn/react-laravel">GitHub</a> to help us increase.'
+    //     });
+    // }
+    props.setActiveComponentProp('FinalResult');
+    loadData();
+  }, []);
+
+  var loadData = function loadData() {
+    setState(_objectSpread({}, state, {
+      loading: true
+    }));
+    axios.get('/api/v1/dashboard-data', {
+      params: {
+        api_token: state.authUser.api_token
+      }
+    }).then(function (response) {
+      setState(_objectSpread({}, state, {
+        loading: false,
+        totalLeads: response.data.message.totalLeads,
+        weeklyLeads: response.data.message.weeklyLeads,
+        monthlyLeads: response.data.message.monthlyLeads,
+        recentLeads: response.data.message.recentLeads
+      }));
+    })["catch"](function (error) {
+      setState(_objectSpread({}, state, {
+        loading: false
+      }));
+      console.log(error);
+    });
+  };
+
+  var showRecentLeads = function showRecentLeads() {
+    if (state.recentLeads) {
+      if (state.recentLeads.length > 0) {
+        return state.recentLeads.map(function (lead, i) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+            key: i
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, renderParty(lead.party_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", renderParty(lead.party_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress-bar bg-gradient-success",
+            role: "progressbar",
+            style: {
+              width: lead.votes ? lead.votes : 0 + '%'
+            },
+            "aria-valuenow": lead.votes ? lead.votes : 0,
+            "aria-valuemin": "0",
+            "aria-valuemax": "100"
+          }))));
+        });
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "text-muted lead"
+        }, "No Recent Lead"));
+      }
+    } else {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "text-muted lead"
+      }, "No Recent Lead"));
+    }
+  };
+
+  var renderConstituency = function renderConstituency(Id) {
+    switch (Id) {
+      case "1":
+        return "Shangri-la-Town";
+
+      case "2":
+        return "Northern-Kunlun-Mountain";
+
+      case "3":
+        return "Western-Shangri-la";
+
+      case "4":
+        return "Naboo-Vallery";
+
+      case "5":
+        return "New-Felucia";
+    }
+  };
+
+  var renderParty = function renderParty(Id) {
+    switch (Id) {
+      case "1":
+        return "Blue Party";
+
+      case "2":
+        return "Red Party";
+
+      case "3":
+        return "Yellow Party";
+
+      case "4":
+        return "Independent";
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body animated fadeIn"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    className: "card-title"
+  }, "Final Result"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "table-responsive"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+    className: "table"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Party "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Votes "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Seats "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, showRecentLeads()))))));
+}; //redux state can be accessed as props in this component(Optional)
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    authUserProp: state.authUserReducer,
+    activeComponentProp: state.activeComponentReducer
+  };
+};
+/**
+ * redux state can be change by calling 'props.setAuthUserProp('demo user');' when
+ * applicable(Optional to )
+ *
+ */
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setAuthUserProp: function setAuthUserProp(user) {
+      return dispatch(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["default"].setAuthUser(user));
+    },
+    setActiveComponentProp: function setActiveComponentProp(component) {
+      return dispatch(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["default"].setActiveComponent(component));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(ConstituenciesResultList));
+
+/***/ }),
+
 /***/ "./resources/js/redux/actions/index.js":
 /*!*********************************************!*\
   !*** ./resources/js/redux/actions/index.js ***!
@@ -94510,21 +94922,26 @@ var voterReducer = function voterReducer() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _components_SznList_LeadList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/SznList/LeadList */ "./resources/js/components/SznList/LeadList.js");
-/* harmony import */ var _components_SznList_NewLead__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/SznList/NewLead */ "./resources/js/components/SznList/NewLead.js");
-/* harmony import */ var _components_SznList_EditLead__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/SznList/EditLead */ "./resources/js/components/SznList/EditLead.js");
-/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../variables */ "./resources/js/variables.js");
-/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_variables__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _redux_reducers_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/reducers/index */ "./resources/js/redux/reducers/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _redux_actions_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../redux/actions/index */ "./resources/js/redux/actions/index.js");
+/* harmony import */ var _components_commissioner_ConstituenciesResultList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/commissioner/ConstituenciesResultList */ "./resources/js/components/commissioner/ConstituenciesResultList.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _components_SznList_LeadList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/SznList/LeadList */ "./resources/js/components/SznList/LeadList.js");
+/* harmony import */ var _components_SznList_NewLead__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/SznList/NewLead */ "./resources/js/components/SznList/NewLead.js");
+/* harmony import */ var _components_SznList_EditLead__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/SznList/EditLead */ "./resources/js/components/SznList/EditLead.js");
+/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../variables */ "./resources/js/variables.js");
+/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_variables__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _redux_reducers_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../redux/reducers/index */ "./resources/js/redux/reducers/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_actions_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../redux/actions/index */ "./resources/js/redux/actions/index.js");
+/* harmony import */ var _components_commissioner_FinalResult__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/commissioner/FinalResult */ "./resources/js/components/commissioner/FinalResult.js");
+
+
 __webpack_require__(/*! ../app */ "./resources/js/app.js");
+
 
 
 
@@ -94538,59 +94955,67 @@ __webpack_require__(/*! ../app */ "./resources/js/app.js");
 
  //create reducer
 
-var myStore = Object(redux__WEBPACK_IMPORTED_MODULE_7__["createStore"])(_redux_reducers_index__WEBPACK_IMPORTED_MODULE_8__["default"], window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+var myStore = Object(redux__WEBPACK_IMPORTED_MODULE_8__["createStore"])(_redux_reducers_index__WEBPACK_IMPORTED_MODULE_9__["default"], window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 function App() {
   //set reducer
-  var myDispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["useDispatch"])();
-  myDispatch(_redux_actions_index__WEBPACK_IMPORTED_MODULE_10__["default"].setAuthUser(authUser)); //authUser is from blade file
+  var myDispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_10__["useDispatch"])();
+  myDispatch(_redux_actions_index__WEBPACK_IMPORTED_MODULE_11__["default"].setAuthUser(authUser)); //authUser is from blade file
   //get reducer
 
-  var activeComponent = Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["useSelector"])(function (state) {
+  var activeComponent = Object(react_redux__WEBPACK_IMPORTED_MODULE_10__["useSelector"])(function (state) {
     return state.activeComponentReducer;
   });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "page-header"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
     className: "page-title"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
     className: "page-title-icon bg-gradient-primary text-white mr-2"
-  }, activeComponent && activeComponent == 'LeadList' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+  }, activeComponent && activeComponent == 'LeadList' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
     className: "mdi mdi-account-multiple"
-  }) : activeComponent && activeComponent == 'NewLead' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+  }) : activeComponent && activeComponent == 'NewLead' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
     className: "mdi mdi-account-plus"
-  }) : activeComponent && activeComponent == 'EditLead' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+  }) : activeComponent && activeComponent == 'EditLead' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
     className: "mdi mdi-folder-account"
-  }) : ''), activeComponent && activeComponent == 'LeadList' ? 'All Candidates' : activeComponent && activeComponent == 'NewLead' ? 'New Candidate' : activeComponent && activeComponent == 'EditLead' ? 'Edit Candidate' : ''), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+  }) : activeComponent && activeComponent == 'ConstituenciesResultList' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+    className: "mdi mdi-newspaper"
+  }) : activeComponent && activeComponent == 'FinalResult' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+    className: "mdi mdi-newspaper"
+  }) : ''), activeComponent && activeComponent == 'LeadList' ? 'All Candidates' : activeComponent && activeComponent == 'NewLead' ? 'New Candidate' : activeComponent && activeComponent == 'EditLead' ? 'Edit Candidate' : activeComponent && activeComponent == 'ConstituenciesResultList' ? 'Results' : activeComponent && activeComponent == 'FinalResult' ? 'Final Results' : ''), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
     "aria-label": "breadcrumb"
-  }, activeComponent && activeComponent != 'LeadList' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-    to: "/lead/list",
+  }, activeComponent && activeComponent != 'LeadList' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/home",
     className: "btn btn-social-icon-text btn-linkedin"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
     className: "mdi mdi-arrow-left-bold btn-icon-prepend"
-  }), "\xA0 Back") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+  }), "\xA0 Back") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/lead/new",
     className: "btn btn-social-icon-text btn-linkedin"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
     className: "mdi mdi-account-plus btn-icon-prepend"
-  }), "\xA0 New"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }), "\xA0 New"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "col-lg-12 grid-margin stretch-card"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     exact: true,
     path: "/lead/list"
-  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_SznList_LeadList__WEBPACK_IMPORTED_MODULE_3__["default"], null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_SznList_LeadList__WEBPACK_IMPORTED_MODULE_4__["default"], null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/lead/new"
-  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_SznList_NewLead__WEBPACK_IMPORTED_MODULE_4__["default"], null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_SznList_NewLead__WEBPACK_IMPORTED_MODULE_5__["default"], null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/lead/edit/:id",
-    component: _components_SznList_EditLead__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }))))));
+    component: _components_SznList_EditLead__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+    path: "/result/constituency-list"
+  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_commissioner_ConstituenciesResultList__WEBPACK_IMPORTED_MODULE_0__["default"], null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+    path: "/result/final"
+  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_commissioner_FinalResult__WEBPACK_IMPORTED_MODULE_12__["default"], null), " "))))));
 }
 
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_9__["Provider"], {
+react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_10__["Provider"], {
   store: myStore
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null)), document.getElementById('app'));
+}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(App, null)), document.getElementById('app'));
 
 /***/ }),
 

@@ -33,5 +33,18 @@
                 </ul>
               </div>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#result-routes" aria-expanded="false" aria-controls="result-routes">
+                <span class="menu-title">Results</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+              </a>
+              <div class="collapse" id="result-routes">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{{ route('ConstituenciesResultList') }}">By Constituency</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{ route('FinalResult') }}">Final</a></li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </nav>

@@ -67328,7 +67328,7 @@ var Dashboard = function Dashboard(props) {
             "aria-valuenow": lead.votes ? lead.votes : 0,
             "aria-valuemin": "0",
             "aria-valuemax": "100"
-          })) : !myVote && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             type: "button",
             className: "btn btn-danger btn-sm btn-upper",
             onClick: function onClick() {
@@ -67441,7 +67441,7 @@ var Dashboard = function Dashboard(props) {
     className: "mdi mdi-calendar-multiple-check mdi-24px float-right"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
     className: "mb-5"
-  }, state.monthlyLeads))))), JSON.stringify(myVote), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, state.monthlyLeads))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-12 grid-margin"
