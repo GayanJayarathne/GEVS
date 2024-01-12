@@ -3,9 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Candidate;
+use App\Models\Cluster;
+use App\Models\Constituency;
+use App\Models\Department;
 use App\Models\Lead;
+use App\Models\TrainingDiaryCode;
+use App\Models\TrainingDiaryStatus;
+use App\Models\TrainingDiaryType;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class LeadController extends Controller
@@ -182,23 +190,56 @@ class LeadController extends Controller
     }
 
 
-//        $leads = Lead::where('user_id', $user->id)->orderBy($sortBy, $sortType);
-    public function listCandidateVotes(Request $request)
+    public function votesDropdown(Request $request)
     {
-        $user = User::where('api_token', $request['api_token'])->first();
-
-//        $constituency = $request['constituency'];
-
-        $result = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
-            ->select('leads.name as candidate_name', 'parties.name as party_name', 'leads.votes')
-            ->groupBy('leads.constituency_id')
+        $constituency1 = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
+            ->join('constituencies', 'leads.constituency_id', '=', 'constituencies.id')
+            ->select('leads.name as candidate_name', 'parties.name as party_name', 'constituencies.name as constituency_name', 'leads.votes')
+            ->where('leads.constituency_id', 1)
             ->orderBy('votes', 'desc')
             ->paginate($request['per_page']);
 
+        $constituency2 = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
+            ->join('constituencies', 'leads.constituency_id', '=', 'constituencies.id')
+            ->select('leads.name as candidate_name', 'parties.name as party_name', 'constituencies.name as constituency_name', 'leads.votes')
+            ->where('leads.constituency_id', 2)
+            ->orderBy('votes', 'desc')
+            ->paginate($request['per_page']);
+
+        $constituency3 = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
+            ->join('constituencies', 'leads.constituency_id', '=', 'constituencies.id')
+            ->select('leads.name as candidate_name', 'parties.name as party_name', 'constituencies.name as constituency_name', 'leads.votes')
+            ->where('leads.constituency_id', 3)
+            ->orderBy('votes', 'desc')
+            ->paginate($request['per_page']);
+
+        $constituency4 = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
+            ->join('constituencies', 'leads.constituency_id', '=', 'constituencies.id')
+            ->select('leads.name as candidate_name', 'parties.name as party_name', 'constituencies.name as constituency_name', 'leads.votes')
+            ->where('leads.constituency_id', 4)
+            ->orderBy('votes', 'desc')
+            ->paginate($request['per_page']);
+
+        $constituency5 = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
+            ->join('constituencies', 'leads.constituency_id', '=', 'constituencies.id')
+            ->select('leads.name as candidate_name', 'parties.name as party_name', 'constituencies.name as constituency_name', 'leads.votes')
+            ->where('leads.constituency_id', 5)
+            ->orderBy('votes', 'desc')
+            ->paginate($request['per_page']);
+
+        $obj = (object) array(
+            'constituency1' => $constituency1,
+            'constituency2' => $constituency2,
+            'constituency3' => $constituency3,
+            'constituency4' => $constituency4,
+            'constituency5' => $constituency5,
+
+        );
+
         return response()->json([
-//            'constituency' => $constituency,
-            'result'       => $result->toArray(),
-            'status'       => 'success'
+            'result' => $obj,
+            'message' => 'ok',
+            'status' => 'success'
         ]);
     }
 }
