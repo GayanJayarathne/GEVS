@@ -1,10 +1,12 @@
 import React, {  useState, useEffect } from 'react'
 import Pagination from "react-js-pagination";
-import { useSelector, connect } from 'react-redux';
+import {useSelector, connect, useDispatch} from 'react-redux';
 import rootAction from '../redux/actions/index'
 import { fadeIn } from 'animate.css'
 import 'iziToast/dist/css/iziToast.css';
 import {showSznNotification} from "../Helpers";
+import {setVoter} from "../redux/actions/setVoter";
+import voter from "../redux/reducers/voter";
 
 const Dashboard = (props) => {
 
@@ -14,8 +16,15 @@ const Dashboard = (props) => {
        weeklyLeads: 0,
        monthlyLeads: 0,
        recentLeads: [],
-       loading: false
+       loading: false,
     });
+
+    const [voted, setVoted] = useState()
+
+    const dispatch = useDispatch()
+
+    const myVote = useSelector(voter)
+
 
     useEffect(() => {
         // if (typeof window !== "undefined") {
@@ -114,7 +123,7 @@ const Dashboard = (props) => {
                 ...state,
                 loading: false
             });
-            if (response.data.status == 'validation-error') {
+            if (response.data.status === 'validation-error') {
                 var errorArray = response.data.message;
                 $.each( errorArray, function( key, errors ) {
                     $.each( errors, function( key, errorMessage ) {
@@ -124,16 +133,13 @@ const Dashboard = (props) => {
                         });
                     });
                 });
-            } else if (response.data.status == 'error') {
+            } else if (response.data.status === 'error') {
                 showSznNotification({
                     type : 'error',
                     message : response.data.message
                 });
-            } else if (response.data.status == 'success') {
-                setState({
-                    ...state,
-                    voted: true
-                });
+            } else if (response.data.status === 'success') {
+                dispatch(setVoter(true))
                 showSznNotification({
                     type : 'success',
                     message : response.data.message
@@ -153,6 +159,7 @@ const Dashboard = (props) => {
         if(state.recentLeads){
             if(state.recentLeads.length > 0){
                 return (
+
                     state.recentLeads.map((lead, i) => {
                         return <tr key={i}>
                             <td>
@@ -167,8 +174,8 @@ const Dashboard = (props) => {
                                           aria-valuenow={lead.votes ? lead.votes : 0} aria-valuemin="0"
                                           aria-valuemax="100"></div>
                                 </div>:
-                                    (!state?.voted && <button type="button" className="btn btn-danger btn-sm btn-upper" onClick={() => onVoteHandle(lead?.id,lead?.name)}>Vote
-                            </button>)
+                                <button type="button" className="btn btn-danger btn-sm btn-upper" onClick={() => onVoteHandle(lead?.id,lead?.name)}>Vote
+                            </button>
 
                                 }
                             </td>

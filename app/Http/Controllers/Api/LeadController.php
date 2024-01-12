@@ -187,17 +187,16 @@ class LeadController extends Controller
     {
         $user = User::where('api_token', $request['api_token'])->first();
 
-        $constituency = $request['constituency'];
+//        $constituency = $request['constituency'];
 
-        $result = DB::table('leads')
-            ->join('parties', 'leads.party_id', '=', 'parties.id')
+        $result = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
             ->select('leads.name as candidate_name', 'parties.name as party_name', 'leads.votes')
             ->groupBy('leads.constituency_id')
-            ->orderBy($request['votes'], $request['desc'])
+            ->orderBy('votes', 'desc')
             ->paginate($request['per_page']);
 
         return response()->json([
-            'constituency' => $constituency,
+//            'constituency' => $constituency,
             'result'       => $result->toArray(),
             'status'       => 'success'
         ]);

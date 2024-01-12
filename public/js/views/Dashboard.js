@@ -67142,6 +67142,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! iziToast/dist/css/iziToast.css */ "./node_modules/iziToast/dist/css/iziToast.css");
 /* harmony import */ var iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _Helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Helpers */ "./resources/js/Helpers.js");
+/* harmony import */ var _redux_actions_setVoter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/actions/setVoter */ "./resources/js/redux/actions/setVoter.js");
+/* harmony import */ var _redux_reducers_voter__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/reducers/voter */ "./resources/js/redux/reducers/voter.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -67168,6 +67170,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var Dashboard = function Dashboard(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     authUser: props.authUserProp,
@@ -67181,6 +67185,13 @@ var Dashboard = function Dashboard(props) {
       state = _useState2[0],
       setState = _useState2[1];
 
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      voted = _useState4[0],
+      setVoted = _useState4[1];
+
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+  var myVote = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(_redux_reducers_voter__WEBPACK_IMPORTED_MODULE_8__["default"]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     // if (typeof window !== "undefined") {
     //     const iziToast = require('iziToast');
@@ -67265,7 +67276,7 @@ var Dashboard = function Dashboard(props) {
         loading: false
       }));
 
-      if (response.data.status == 'validation-error') {
+      if (response.data.status === 'validation-error') {
         var errorArray = response.data.message;
         $.each(errorArray, function (key, errors) {
           $.each(errors, function (key, errorMessage) {
@@ -67275,15 +67286,13 @@ var Dashboard = function Dashboard(props) {
             });
           });
         });
-      } else if (response.data.status == 'error') {
+      } else if (response.data.status === 'error') {
         Object(_Helpers__WEBPACK_IMPORTED_MODULE_6__["showSznNotification"])({
           type: 'error',
           message: response.data.message
         });
-      } else if (response.data.status == 'success') {
-        setState(_objectSpread({}, state, {
-          voted: true
-        }));
+      } else if (response.data.status === 'success') {
+        dispatch(Object(_redux_actions_setVoter__WEBPACK_IMPORTED_MODULE_7__["setVoter"])(true));
         Object(_Helpers__WEBPACK_IMPORTED_MODULE_6__["showSznNotification"])({
           type: 'success',
           message: response.data.message
@@ -67319,7 +67328,7 @@ var Dashboard = function Dashboard(props) {
             "aria-valuenow": lead.votes ? lead.votes : 0,
             "aria-valuemin": "0",
             "aria-valuemax": "100"
-          })) : !(state === null || state === void 0 ? void 0 : state.voted) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          })) : !myVote && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             type: "button",
             className: "btn btn-danger btn-sm btn-upper",
             onClick: function onClick() {
@@ -67432,7 +67441,7 @@ var Dashboard = function Dashboard(props) {
     className: "mdi mdi-calendar-multiple-check mdi-24px float-right"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
     className: "mb-5"
-  }, state.monthlyLeads))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, state.monthlyLeads))))), JSON.stringify(myVote), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-12 grid-margin"
@@ -67536,6 +67545,26 @@ var setAuthUser = function setAuthUser(user) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (setAuthUser);
+
+/***/ }),
+
+/***/ "./resources/js/redux/actions/setVoter.js":
+/*!************************************************!*\
+  !*** ./resources/js/redux/actions/setVoter.js ***!
+  \************************************************/
+/*! exports provided: setVoter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setVoter", function() { return setVoter; });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var setVoter = function setVoter(attr, value) {
+  return _defineProperty({
+    type: 'SET_VOTER'
+  }, attr, value);
+};
 
 /***/ }),
 
@@ -67643,6 +67672,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _activeComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./activeComponent */ "./resources/js/redux/reducers/activeComponent.js");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _constituency__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constituency */ "./resources/js/redux/reducers/constituency.js");
+/* harmony import */ var _voter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./voter */ "./resources/js/redux/reducers/voter.js");
+
 
 
 
@@ -67651,9 +67682,51 @@ __webpack_require__.r(__webpack_exports__);
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_2__["combineReducers"])({
   authUserReducer: _authUser__WEBPACK_IMPORTED_MODULE_0__["default"],
   activeComponentReducer: _activeComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-  constituencyReducer: _constituency__WEBPACK_IMPORTED_MODULE_3__["default"]
+  constituencyReducer: _constituency__WEBPACK_IMPORTED_MODULE_3__["default"],
+  voterReducer: _voter__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
+
+/***/ }),
+
+/***/ "./resources/js/redux/reducers/voter.js":
+/*!**********************************************!*\
+  !*** ./resources/js/redux/reducers/voter.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var defaultState = {
+  voted: Boolean,
+  test: 'test'
+};
+
+var voterReducer = function voterReducer() {
+  var vote = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  if (action) {
+    switch (action === null || action === void 0 ? void 0 : action.type) {
+      case 'SET_VOTER':
+        var attr = Object.keys(action)[1];
+        var value = Object.values(action)[1];
+        return _objectSpread({}, vote, _defineProperty({}, attr, value));
+
+      default:
+        return vote;
+    }
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (voterReducer);
 
 /***/ }),
 

@@ -94429,6 +94429,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _activeComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./activeComponent */ "./resources/js/redux/reducers/activeComponent.js");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _constituency__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constituency */ "./resources/js/redux/reducers/constituency.js");
+/* harmony import */ var _voter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./voter */ "./resources/js/redux/reducers/voter.js");
+
 
 
 
@@ -94437,9 +94439,51 @@ __webpack_require__.r(__webpack_exports__);
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_2__["combineReducers"])({
   authUserReducer: _authUser__WEBPACK_IMPORTED_MODULE_0__["default"],
   activeComponentReducer: _activeComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-  constituencyReducer: _constituency__WEBPACK_IMPORTED_MODULE_3__["default"]
+  constituencyReducer: _constituency__WEBPACK_IMPORTED_MODULE_3__["default"],
+  voterReducer: _voter__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
+
+/***/ }),
+
+/***/ "./resources/js/redux/reducers/voter.js":
+/*!**********************************************!*\
+  !*** ./resources/js/redux/reducers/voter.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var defaultState = {
+  voted: Boolean,
+  test: 'test'
+};
+
+var voterReducer = function voterReducer() {
+  var vote = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  if (action) {
+    switch (action === null || action === void 0 ? void 0 : action.type) {
+      case 'SET_VOTER':
+        var attr = Object.keys(action)[1];
+        var value = Object.values(action)[1];
+        return _objectSpread({}, vote, _defineProperty({}, attr, value));
+
+      default:
+        return vote;
+    }
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (voterReducer);
 
 /***/ }),
 
