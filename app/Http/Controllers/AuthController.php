@@ -51,6 +51,15 @@ class AuthController extends Controller
             ], 401);
         }
 
+        $user_uvc = User::where('uvc_code_id',$uvcCode->id)->first();
+
+        if ($user_uvc) {
+            return response()->json([
+                'message' => 'UVC Already Registered',
+                'status' => 'validation-error'
+            ], 401);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
