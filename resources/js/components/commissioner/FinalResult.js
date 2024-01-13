@@ -8,13 +8,11 @@ const ConstituenciesResultList = (props) => {
 
     const [state, setState] = useState({
         authUser: props.authUserProp,
-        totalLeads: 0,
-        weeklyLeads: 0,
-        monthlyLeads: 0,
-        recentLeads: [],
+        totalSeats: null,
         loading: false,
     });
 
+    const [partySeats,setPartySeats] = useState([])
 
     useEffect(() => {
         // if (typeof window !== "undefined") {
@@ -40,7 +38,8 @@ const ConstituenciesResultList = (props) => {
             ...state,
             loading: true
         });
-        axios.get('/api/v1/dashboard-data', {
+
+        axios.get('/api/v1/lead/finalResults', {
             params: {
                 api_token: state.authUser.api_token,
             }
@@ -49,11 +48,9 @@ const ConstituenciesResultList = (props) => {
                 setState({
                     ...state,
                     loading: false,
-                    totalLeads: response.data.message.totalLeads,
-                    weeklyLeads: response.data.message.weeklyLeads,
-                    monthlyLeads: response.data.message.monthlyLeads,
-                    recentLeads: response.data.message.recentLeads,
+                    totalSeats: response.data.party_seats,
                 })
+                setPartySeats(renderSeats(response.data.party_seats))
             })
             .catch((error) => {
                 setState({
@@ -65,34 +62,26 @@ const ConstituenciesResultList = (props) => {
     };
 
     const showRecentLeads = () => {
-        if(state.recentLeads){
-            if(state.recentLeads.length > 0){
+        if(partySeats){
+            if(partySeats.length > 0){
                 return (
 
-                    state.recentLeads.map((lead, i) => {
+                    partySeats && partySeats.map((lead, i) => {
                         return <tr key={i}>
-                            <td>{renderParty(lead.party_id)} </td>
-                            <td> {renderParty(lead.party_id)} </td>
-                            <td>
-                                    <div className="progress">
-                                        <div className="progress-bar bg-gradient-success" role="progressbar"
-                                             style={{width: lead.votes ? lead.votes : 0 + '%'}}
-                                             aria-valuenow={lead.votes ? lead.votes : 0} aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                            </td>
+                            <td>{lead.party} </td>
+                            <td> {lead.seat} </td>
                         </tr>;
                     })
                 )
 
             }else{
                 return (
-                    <tr><td className="text-muted lead">No Recent Lead</td></tr>
+                    <tr><td className="text-muted lead">No Recent Result</td></tr>
                 )
             }
         }else{
             return (
-                <tr><td className="text-muted lead">No Recent Lead</td></tr>
+                <tr><td className="text-muted lead">No Recent Result</td></tr>
             )
         }
     };
@@ -127,17 +116,35 @@ const ConstituenciesResultList = (props) => {
         }
     }
 
+    const renderSeats = (data) => {
+        if(data){
+            const outputArray = [];
+
+            for (const party in data) {
+                outputArray.push({
+                    "party": party,
+                    "seat": String(data[party])
+                });
+            }
+
+            outputArray.sort((a, b) => parseInt(b.seat) - parseInt(a.seat));
+
+            return outputArray
+        }
+    }
+
     return (
         <React.Fragment>
                     <div className="card">
                         <div className="card-body animated fadeIn">
                             <h4 className="card-title">Final Result</h4>
+                            {/*{JSON.stringify(partySeats)}*/}
                             <div className="table-responsive">
                                 <table className="table">
                                     <thead>
                                     <tr>
                                         <th> Party </th>
-                                        <th> Votes </th>
+                                        {/*<th> Votes </th>*/}
                                         <th> Seats </th>
                                     </tr>
                                     </thead>

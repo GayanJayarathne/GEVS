@@ -92989,7 +92989,7 @@ function EditLead(props) {
     className: 'small text-danger mdi mdi-alert pt-1 pl-1'
   }));
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    document.title = 'Edit Lead';
+    document.title = 'Edit Candidate';
     props.setActiveComponentProp('EditLead');
   }, []);
 
@@ -93460,7 +93460,7 @@ function LeadList(props) {
   //const authUser = props.authUserProp;
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    document.title = 'All Leads';
+    document.title = 'All Candidates';
     props.setActiveComponentProp('LeadList');
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
@@ -94505,15 +94505,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var ConstituenciesResultList = function ConstituenciesResultList(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     authUser: props.authUserProp,
-    totalLeads: 0,
-    weeklyLeads: 0,
-    monthlyLeads: 0,
-    recentLeads: [],
+    totalSeats: null,
     loading: false
   }),
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
       setState = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      partySeats = _useState4[0],
+      setPartySeats = _useState4[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     // if (typeof window !== "undefined") {
@@ -94537,18 +94539,16 @@ var ConstituenciesResultList = function ConstituenciesResultList(props) {
     setState(_objectSpread({}, state, {
       loading: true
     }));
-    axios.get('/api/v1/dashboard-data', {
+    axios.get('/api/v1/lead/finalResults', {
       params: {
         api_token: state.authUser.api_token
       }
     }).then(function (response) {
       setState(_objectSpread({}, state, {
         loading: false,
-        totalLeads: response.data.message.totalLeads,
-        weeklyLeads: response.data.message.weeklyLeads,
-        monthlyLeads: response.data.message.monthlyLeads,
-        recentLeads: response.data.message.recentLeads
+        totalSeats: response.data.party_seats
       }));
+      setPartySeats(renderSeats(response.data.party_seats));
     })["catch"](function (error) {
       setState(_objectSpread({}, state, {
         loading: false
@@ -94558,33 +94558,22 @@ var ConstituenciesResultList = function ConstituenciesResultList(props) {
   };
 
   var showRecentLeads = function showRecentLeads() {
-    if (state.recentLeads) {
-      if (state.recentLeads.length > 0) {
-        return state.recentLeads.map(function (lead, i) {
+    if (partySeats) {
+      if (partySeats.length > 0) {
+        return partySeats && partySeats.map(function (lead, i) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
             key: i
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, renderParty(lead.party_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", renderParty(lead.party_id), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "progress"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "progress-bar bg-gradient-success",
-            role: "progressbar",
-            style: {
-              width: lead.votes ? lead.votes : 0 + '%'
-            },
-            "aria-valuenow": lead.votes ? lead.votes : 0,
-            "aria-valuemin": "0",
-            "aria-valuemax": "100"
-          }))));
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, lead.party, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", lead.seat, " "));
         });
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           className: "text-muted lead"
-        }, "No Recent Lead"));
+        }, "No Recent Result"));
       }
     } else {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
         className: "text-muted lead"
-      }, "No Recent Lead"));
+      }, "No Recent Result"));
     }
   };
 
@@ -94623,6 +94612,24 @@ var ConstituenciesResultList = function ConstituenciesResultList(props) {
     }
   };
 
+  var renderSeats = function renderSeats(data) {
+    if (data) {
+      var outputArray = [];
+
+      for (var party in data) {
+        outputArray.push({
+          "party": party,
+          "seat": String(data[party])
+        });
+      }
+
+      outputArray.sort(function (a, b) {
+        return parseInt(b.seat) - parseInt(a.seat);
+      });
+      return outputArray;
+    }
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -94633,7 +94640,7 @@ var ConstituenciesResultList = function ConstituenciesResultList(props) {
     className: "table-responsive"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     className: "table"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Party "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Votes "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Seats "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, showRecentLeads()))))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Party "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Seats "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, showRecentLeads()))))));
 }; //redux state can be accessed as props in this component(Optional)
 
 

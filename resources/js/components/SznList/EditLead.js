@@ -29,7 +29,7 @@ function EditLead(props) {
     }));
 
     useEffect(() => {
-        document.title = 'Edit Lead';
+        document.title = 'Edit Candidate';
 
         props.setActiveComponentProp('EditLead');
     }, []);

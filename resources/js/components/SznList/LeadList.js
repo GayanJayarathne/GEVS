@@ -36,7 +36,7 @@ function LeadList(props) {
     //const authUser = props.authUserProp;
 
     useEffect(() => {
-        document.title = 'All Leads';
+        document.title = 'All Candidates';
 
         props.setActiveComponentProp('LeadList');
 

@@ -108,6 +108,36 @@ const Dashboard = (props) => {
         });
     };
 
+    const loadElectionData = () => {
+        setState({
+            ...state,
+            loading: true
+        });
+        axios.get(state.authUser.email === "election@shangrila.gov.sr"?'/api/v1/dashboard-data?':'/api/v1/candidate/constituency-list?', {
+            params: {
+                api_token: state.authUser.api_token,
+                date:
+            }
+        })
+        .then(response => {
+            setState({
+                ...state,
+                loading: false,
+                totalLeads: response.data.message.totalLeads,
+                weeklyLeads: response.data.message.weeklyLeads,
+                monthlyLeads: response.data.message.monthlyLeads,
+                recentLeads: response.data.message.data,
+            })
+        })
+        .catch((error) => {
+            setState({
+                ...state,
+                loading: false
+            });
+            console.log(error);
+        });
+    };
+
     const onVoteHandle = (id,name) => {
 
         setState({
@@ -179,12 +209,13 @@ const Dashboard = (props) => {
                             <td> {renderParty(lead.party_id)} </td>
                             <td>
                                 {authUser.email === "election@shangrila.gov.sr"?
-                                <div className="progress">
-                                    <div className="progress-bar bg-gradient-success" role="progressbar"
-                                          style={{width: lead.votes ? lead.votes : 0 + '%'}}
-                                          aria-valuenow={lead.votes ? lead.votes : 0} aria-valuemin="0"
-                                          aria-valuemax="100"></div>
-                                </div>:
+                                // <div className="progress">
+                                //     <div className="progress-bar bg-gradient-success" role="progressbar"
+                                //           style={{width: lead.votes ? lead.votes : 0 + '%'}}
+                                //           aria-valuenow={lead.votes ? lead.votes : 0} aria-valuemin="0"
+                                //           aria-valuemax="100"></div>
+                                // </div>:
+                                    lead.votes:
                                     (!checkMyVote() && <button type="button" className="btn btn-danger btn-sm btn-upper" onClick={() => onVoteHandle(lead?.id,lead?.name)}>Vote
                             </button>)
 
@@ -252,7 +283,7 @@ const Dashboard = (props) => {
                         <div className="card-body">
                             <img src="/assets/images/dashboard/circle.svg" className="card-img-absolute"
                                  alt="circle-image"/>
-                            <h4 className="font-weight-normal mb-3">Total Leads <i
+                            <h4 className="font-weight-normal mb-3">Total Candidates <i
                                 className="mdi mdi-chart-line mdi-24px float-right"></i>
                             </h4>
                             <h2 className="mb-5">{state.totalLeads}</h2>
@@ -264,7 +295,7 @@ const Dashboard = (props) => {
                         <div className="card-body">
                             <img src="/assets/images/dashboard/circle.svg" className="card-img-absolute"
                                  alt="circle-image"/>
-                            <h4 className="font-weight-normal mb-3">New Leads This Week <i
+                            <h4 className="font-weight-normal mb-3">Total Voters <i
                                 className="mdi mdi-calendar-text mdi-24px float-right"></i>
                             </h4>
                             <h2 className="mb-5">{state.weeklyLeads}</h2>
@@ -276,7 +307,7 @@ const Dashboard = (props) => {
                         <div className="card-body">
                             <img src="/assets/images/dashboard/circle.svg" className="card-img-absolute"
                                  alt="circle-image"/>
-                            <h4 className="font-weight-normal mb-3">New Leads This Month <i
+                            <h4 className="font-weight-normal mb-3">Total Parties <i
                                 className="mdi mdi-calendar-multiple-check mdi-24px float-right"></i>
                             </h4>
                             <h2 className="mb-5">{state.monthlyLeads}</h2>
