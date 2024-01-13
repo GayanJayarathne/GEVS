@@ -94665,6 +94665,276 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./resources/js/components/commissioner/ResultByConstituencies.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/commissioner/ResultByConstituencies.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var animate_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! animate.css */ "./node_modules/animate.css/animate.css");
+/* harmony import */ var animate_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(animate_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! iziToast/dist/css/iziToast.css */ "./node_modules/iziToast/dist/css/iziToast.css");
+/* harmony import */ var iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(iziToast_dist_css_iziToast_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../redux/actions */ "./resources/js/redux/actions/index.js");
+/* harmony import */ var _SznList_TopControl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../SznList/TopControl */ "./resources/js/components/SznList/TopControl.js");
+/* harmony import */ var _TopControlCons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TopControlCons */ "./resources/js/components/commissioner/TopControlCons.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+var ResultByConstituencies = function ResultByConstituencies(props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    authUser: props.authUserProp,
+    consResult: [],
+    constituency_id: "1",
+    loading: false
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    // if (typeof window !== "undefined") {
+    //     const iziToast = require('iziToast');
+    //
+    //     iziToast.show({
+    //         timeout: 0,
+    //         progressBar: false,
+    //         displayMode: 'once',
+    //         theme: 'light',
+    //         id: 'star-notification',
+    //         title: '<a target="_blank" rel="noopener noreferrer" href="https://github.com/arifszn/react-laravel"><img src="https://img.shields.io/github/stars/arifszn/react-laravel?style=social" alt="Github Star"/></a>',
+    //         message: 'We need your support. Please ⭐️ on <a target="_blank" rel="noopener noreferrer" href="https://github.com/arifszn/react-laravel">GitHub</a> to help us increase.'
+    //     });
+    // }
+    props.setActiveComponentProp('ConstituenciesResultList');
+    loadData();
+  }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (state.constituency_id) {
+      loadData();
+    }
+  }, [state.constituency_id]);
+
+  var loadData = function loadData() {
+    setState(_objectSpread({}, state, {
+      loading: true
+    }));
+    axios.get('/api/v1/lead/listVotesConstituency', {
+      params: {
+        api_token: state.authUser.api_token,
+        constituency_id: state.constituency_id
+      }
+    }).then(function (response) {
+      setState(_objectSpread({}, state, {
+        loading: false,
+        consResult: response.data.message.data
+      }));
+    })["catch"](function (error) {
+      setState(_objectSpread({}, state, {
+        loading: false
+      }));
+      console.log(error);
+    });
+  };
+
+  var showRecentLeads = function showRecentLeads(data) {
+    if (data) {
+      if (data.length > 0) {
+        return data.map(function (lead, i) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+            key: i
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: "/assets/images/faces/face1.jpg",
+            className: "mr-2",
+            alt: "image"
+          }), " ", lead.candidate_name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", lead.party_name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, lead.votes));
+        });
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "text-muted lead"
+        }, "No Result"));
+      }
+    } else {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "text-muted lead"
+      }, "No Result"));
+    }
+  };
+
+  var renderConstituency = function renderConstituency(Id) {
+    switch (Id) {
+      case "1":
+        return "Shangri-la-Town";
+
+      case "2":
+        return "Northern-Kunlun-Mountain";
+
+      case "3":
+        return "Western-Shangri-la";
+
+      case "4":
+        return "Naboo-Vallery";
+
+      case "5":
+        return "New-Felucia";
+    }
+  };
+
+  var renderParty = function renderParty(Id) {
+    switch (Id) {
+      case "1":
+        return "Blue Party";
+
+      case "2":
+        return "Red Party";
+
+      case "3":
+        return "Yellow Party";
+
+      case "4":
+        return "Independent";
+    }
+  };
+
+  var constituencyList = ['constituency1', 'constituency2', 'constituency3', 'constituency4', 'constituency5'];
+
+  var renderTable = function renderTable() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      className: "card-title"
+    }, renderConstituency(state.constituency_id)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "table-responsive"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+      className: "table"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Name "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Party "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, " Votes "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, showRecentLeads(state.consResult)))));
+  };
+
+  var onChangeConstituencyHandle = function onChangeConstituencyHandle(e) {
+    setState(_objectSpread({}, state, {
+      constituency_id: e.target.value
+    }));
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TopControlCons__WEBPACK_IMPORTED_MODULE_6__["default"] // isLoading={isLoading}
+  , {
+    onChangeConstituencyHandle: onChangeConstituencyHandle,
+    cons: state.constituency_id
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body animated fadeIn"
+  }, renderTable())));
+}; //redux state can be accessed as props in this component(Optional)
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    authUserProp: state.authUserReducer,
+    activeComponentProp: state.activeComponentReducer
+  };
+};
+/**
+ * redux state can be change by calling 'props.setAuthUserProp('demo user');' when
+ * applicable(Optional to )
+ *
+ */
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setAuthUserProp: function setAuthUserProp(user) {
+      return dispatch(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["default"].setAuthUser(user));
+    },
+    setActiveComponentProp: function setActiveComponentProp(component) {
+      return dispatch(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["default"].setActiveComponent(component));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(ResultByConstituencies));
+
+/***/ }),
+
+/***/ "./resources/js/components/commissioner/TopControlCons.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/commissioner/TopControlCons.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var TopControlCons = function TopControlCons(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "pt-3 pb-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "d-flex flex-column flex-md-row justify-content-md-between"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "d-flex flex-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "p-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group input-group-sm"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group-prepend"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "input-group-text"
+  }, "Display")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    className: "form-control form-control-sm",
+    placeholder: "Constituency",
+    id: "constituency",
+    name: "constituency",
+    value: props === null || props === void 0 ? void 0 : props.cons,
+    onChange: props.onChangeConstituencyHandle
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "1"
+  }, "Shangri-la-Town"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "2"
+  }, "Northern-Kunlun-Mountain"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "3"
+  }, "Western-Shangri-la"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "4"
+  }, "Naboo-Vallery"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "5"
+  }, "New-Felucia"))))))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (TopControlCons);
+
+/***/ }),
+
 /***/ "./resources/js/redux/actions/index.js":
 /*!*********************************************!*\
   !*** ./resources/js/redux/actions/index.js ***!
@@ -94927,9 +95197,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_actions_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../redux/actions/index */ "./resources/js/redux/actions/index.js");
 /* harmony import */ var _components_commissioner_FinalResult__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/commissioner/FinalResult */ "./resources/js/components/commissioner/FinalResult.js");
+/* harmony import */ var _components_commissioner_ResultByConstituencies__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/commissioner/ResultByConstituencies */ "./resources/js/components/commissioner/ResultByConstituencies.js");
 
 
 __webpack_require__(/*! ../app */ "./resources/js/app.js");
+
 
 
 
@@ -94999,7 +95271,9 @@ function App() {
     path: "/result/constituency-list"
   }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_commissioner_ConstituenciesResultList__WEBPACK_IMPORTED_MODULE_0__["default"], null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/result/final"
-  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_commissioner_FinalResult__WEBPACK_IMPORTED_MODULE_12__["default"], null), " "))))));
+  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_commissioner_FinalResult__WEBPACK_IMPORTED_MODULE_12__["default"], null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+    path: "/result/by-constituency"
+  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_commissioner_ResultByConstituencies__WEBPACK_IMPORTED_MODULE_13__["default"], null), " "))))));
 }
 
 react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_10__["Provider"], {

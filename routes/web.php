@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //react route
     Route::get('/result/constituency-list', 'ResultsController@index')->name('ConstituenciesResultList');
+    Route::get('/result/by-constituency', 'ResultsController@index')->name('ByConstituenciesResult');
     Route::get('/result/final', 'ResultsController@index')->name('FinalResult');
 
     Route::get('/lead/list', 'LeadController@index')->name('Leads');

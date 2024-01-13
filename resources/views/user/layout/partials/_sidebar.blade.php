@@ -41,7 +41,8 @@
               </a>
               <div class="collapse" id="result-routes">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="{{ route('ConstituenciesResultList') }}">By Constituency</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{ route('ConstituenciesResultList') }}">Constituency</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{ route('ByConstituenciesResult') }}">By Constituency</a></li>
                   <li class="nav-item"> <a class="nav-link" href="{{ route('FinalResult') }}">Final</a></li>
                 </ul>
               </div>
