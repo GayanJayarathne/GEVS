@@ -7,6 +7,7 @@ import 'iziToast/dist/css/iziToast.css';
 import {showSznNotification} from "../Helpers";
 import {setVoter} from "../redux/actions/setVoter";
 import voter from "../redux/reducers/voter";
+import voterReducer from "../redux/reducers/voter";
 
 const Dashboard = (props) => {
 
@@ -23,7 +24,7 @@ const Dashboard = (props) => {
 
     const dispatch = useDispatch()
 
-    const myVote = useSelector(voter)
+    const myVote = useSelector(state => state.voterReducer)
 
 
     useEffect(() => {
@@ -139,7 +140,7 @@ const Dashboard = (props) => {
                     message : response.data.message
                 });
             } else if (response.data.status === 'success') {
-                dispatch(setVoter(true))
+                dispatch(setVoter(authUser.email,true))
                 showSznNotification({
                     type : 'success',
                     message : response.data.message
@@ -153,6 +154,16 @@ const Dashboard = (props) => {
             });
             console.log(error);
         });
+    }
+
+    const checkMyVote = () => {
+
+        if(myVote){
+            return myVote.hasOwnProperty(authUser.email);
+        }
+        else{
+            return false
+        }
     }
 
     const showRecentLeads = () => {
@@ -174,8 +185,8 @@ const Dashboard = (props) => {
                                           aria-valuenow={lead.votes ? lead.votes : 0} aria-valuemin="0"
                                           aria-valuemax="100"></div>
                                 </div>:
-                                <button type="button" className="btn btn-danger btn-sm btn-upper" onClick={() => onVoteHandle(lead?.id,lead?.name)}>Vote
-                            </button>
+                                    (!checkMyVote() && <button type="button" className="btn btn-danger btn-sm btn-upper" onClick={() => onVoteHandle(lead?.id,lead?.name)}>Vote
+                            </button>)
 
                                 }
                             </td>
@@ -235,7 +246,6 @@ const Dashboard = (props) => {
 				 	Dashboard
 				</h3>
 			</div>
-
             {authUser.email === "election@shangrila.gov.sr" && <div className="row animated fadeIn">
                 <div className="col-md-4 stretch-card grid-margin">
                     <div className="card bg-danger card-img-holder text-white">

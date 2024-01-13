@@ -94745,7 +94745,7 @@ var NewElection = function NewElection(props) {
   }));
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     document.title = 'New Candidate';
-    props.setActiveComponentProp('NewLead');
+    props.setActiveComponentProp('NewElection');
   }, []);
 
   var onChangeHandle = function onChangeHandle(e) {
@@ -95309,8 +95309,8 @@ var authUserReducer = function authUserReducer() {
   var authUser = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
-  if (action.type == 'SET_AUTH_USER') {
-    if (action.payload != undefined) authUser = action.payload;
+  if (action.type === 'SET_AUTH_USER') {
+    if (action.payload !== undefined) authUser = action.payload;
     return authUser;
   } else {
     return authUser;
@@ -95407,13 +95407,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var defaultState = {
-  voted: Boolean,
-  test: 'test'
-};
-
 var voterReducer = function voterReducer() {
-  var vote = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var vote = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   if (action) {
@@ -95520,7 +95515,7 @@ function App() {
     className: "mdi mdi-newspaper"
   }) : activeComponent && activeComponent == 'FinalResult' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
     className: "mdi mdi-newspaper"
-  }) : ''), activeComponent && activeComponent == 'LeadList' ? 'All Candidates' : activeComponent && activeComponent == 'NewLead' ? 'New Candidate' : activeComponent && activeComponent == 'EditLead' ? 'Edit Candidate' : activeComponent && activeComponent == 'ConstituenciesResultList' ? 'Results' : activeComponent && activeComponent == 'FinalResult' ? 'Final Results' : ''), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
+  }) : ''), activeComponent && activeComponent == 'LeadList' ? 'All Candidates' : activeComponent && activeComponent == 'NewLead' ? 'New Candidate' : activeComponent && activeComponent == 'EditLead' ? 'Edit Candidate' : activeComponent && activeComponent == 'ConstituenciesResultList' ? 'Results' : activeComponent && activeComponent == 'FinalResult' ? 'Final Results' : 'New'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
     "aria-label": "breadcrumb"
   }, activeComponent && activeComponent != 'LeadList' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/home",

@@ -30,7 +30,7 @@ const NewElection = (props) => {
     useEffect(() => {
         document.title = 'New Candidate';
 
-        props.setActiveComponentProp('NewLead');
+        props.setActiveComponentProp('NewElection');
     }, []);
 
     const onChangeHandle = (e) =>{
