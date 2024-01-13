@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\VotingStart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function () {
     Route::get('/constituency/constituency-dropdown', 'Api\ConstituencyController@constituenciesDropdown');
 
     Route::get('/candidate/constituency-list', 'Api\VoterController@getDataByConstituency');
+
+    Route::get('/votingStart/listData', 'Api\VotingStartController@listData');
+    Route::post('/votingStart/create', 'Api\VotingStartController@create');
 });
