@@ -25,4 +25,5 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function () {
 
     Route::get('/votingStart/listData', 'Api\VotingStartController@listData');
     Route::post('/votingStart/create', 'Api\VotingStartController@create');
+    Route::get('/votingStart/getByDate', 'Api\VotingStartController@getByDate');
 });
