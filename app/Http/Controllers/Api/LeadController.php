@@ -260,4 +260,97 @@ class LeadController extends Controller
             'status' => 'success'
         ]);
     }
+
+    public function finalResults(Request $request)
+    {
+
+//        $result = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
+//            ->join('constituencies', 'leads.constituency_id', '=', 'constituencies.id')
+//            ->where('leads.constituency_id', $request->input('constituency_id'))
+//            ->orderByDesc('leads.votes')
+//            ->get(['parties.name as party_name', 'leads.votes'])
+//            ->paginate($request['per_page']);
+//
+//
+//        return response()->json([
+//            'result' => $result->toArray(),
+//            'status' => 'success'
+//        ]);
+
+//        $rp = 0;
+//        $bp = 0;
+//        $yp = 0;
+//        $ip = 0;
+//
+//        $results = [];
+//
+//        for ($constituencyId = 1; $constituencyId <= 5; $constituencyId++) {
+//            $result = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
+//                ->join('constituencies', 'leads.constituency_id', '=', 'constituencies.id')
+//                ->where('leads.constituency_id', $constituencyId)
+//                ->orderByDesc('leads.votes')
+//                ->get(['parties.name as party_name', 'leads.votes'])
+//                ->toArray();
+//
+//            if ('parties.name as party_name' == 'Red Party'){
+//                $rp += 1;
+//            }elseif ('parties.name as party_name' == 'Blue Party'){
+//                $bp += 1;
+//            }elseif ('parties.name as party_name' == 'Yellow Party'){
+//                $yp += 1;
+//            }elseif ('parties.name as party_name' == 'Independent'){
+//                $ip += 1;
+//            }
+//            $results->seat = $rp;
+//            $results->seat = $bp;
+//            $results->seat = $yp;
+//            $results->seat = $ip;
+//            $results = $result;
+//        }
+//
+//        return response()->json([
+//            'results' => $results,
+//            'status' => 'success'
+//        ]);
+
+        $partySeats = [
+            'Red Party' => 0,
+            'Blue Party' => 0,
+            'Yellow Party' => 0,
+            'Independent' => 0,
+        ];
+
+        for ($constituencyId = 1; $constituencyId <= 5; $constituencyId++) {
+            $result = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
+                ->join('constituencies', 'leads.constituency_id', '=', 'constituencies.id')
+                ->where('leads.constituency_id', $constituencyId)
+                ->orderByDesc('leads.votes')
+                ->limit(1)
+                ->get(['parties.name as party_name', 'leads.votes'])
+                ->first();
+
+            if ($result) {
+                switch ($result->party_name) {
+                    case 'Red Party':
+                        $partySeats['Red Party'] += 1;
+                        break;
+                    case 'Blue Party':
+                        $partySeats['Blue Party'] += 1;
+                        break;
+                    case 'Yellow Party':
+                        $partySeats['Yellow Party'] += 1;
+                        break;
+                    case 'Independent':
+                        $partySeats['Independent'] += 1;
+                        break;
+                }
+            }
+        }
+
+        return response()->json([
+            'party_seats' => $partySeats,
+            'status' => 'success'
+        ]);
+
+    }
 }
