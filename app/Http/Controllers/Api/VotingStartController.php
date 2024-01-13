@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Constituency;
 use App\Http\Controllers\Controller;
-use App\Models\Lead;
-use App\Models\User;
+use App\Http\Controllers\Lead;
+use App\Http\Controllers\User;
+use App\Http\Controllers\Validator;
 use App\Models\VotingStart;
 use Illuminate\Http\Request;
 
@@ -13,31 +13,13 @@ class VotingStartController extends Controller
 {
     public function listData(Request $request)
     {
-//        $user = User::where('api_token',$request['api_token'])->first();
 
         $voting_start = VotingStart::get();
-
-//        if ($request['query'] != '') {
-//            $voting_start->where('name', 'like', '%' . $request['query'] . '%');
-//        }
 
         return response()->json([
             'message' => $voting_start,
             'status' => 'success'
         ]);
-
-
-//        $constituency = Constituency::get();
-//
-//        $obj = (object)array(
-//            'constituency' => $constituency
-//        );
-//
-//        return response()->json([
-//            'result' => $obj,
-//            'message' => 'ok',
-//            'status' => 'success'
-//        ]);
     }
 
 
