@@ -9,6 +9,7 @@ import {setVoter} from "../redux/actions/setVoter";
 import voter from "../redux/reducers/voter";
 import voterReducer from "../redux/reducers/voter";
 import Countdown from "react-countdown";
+import setElection from "../redux/actions/setElection";
 
 const Dashboard = (props) => {
 
@@ -299,10 +300,12 @@ const Dashboard = (props) => {
 
     const onStart = () => {
         setElectionStarted(false)
+        dispatch(setElection(true))
     }
 
     const onStop = () => {
         setElectionStarted(false)
+        dispatch(setElection(false))
     }
 
     return (

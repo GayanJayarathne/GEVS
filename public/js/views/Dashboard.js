@@ -67764,6 +67764,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_actions_setVoter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/actions/setVoter */ "./resources/js/redux/actions/setVoter.js");
 /* harmony import */ var _redux_reducers_voter__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/reducers/voter */ "./resources/js/redux/reducers/voter.js");
 /* harmony import */ var react_countdown__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-countdown */ "./node_modules/react-countdown/dist/index.es.js");
+/* harmony import */ var _redux_actions_setElection__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../redux/actions/setElection */ "./resources/js/redux/actions/setElection.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -67781,6 +67782,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -68084,10 +68086,12 @@ var Dashboard = function Dashboard(props) {
 
   var _onStart = function onStart() {
     setElectionStarted(false);
+    dispatch(Object(_redux_actions_setElection__WEBPACK_IMPORTED_MODULE_10__["default"])(true));
   };
 
   var _onStop = function onStop() {
     setElectionStarted(false);
+    dispatch(Object(_redux_actions_setElection__WEBPACK_IMPORTED_MODULE_10__["default"])(false));
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -68218,10 +68222,13 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _setAuthUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setAuthUser */ "./resources/js/redux/actions/setAuthUser.js");
 /* harmony import */ var _setActiveComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setActiveComponent */ "./resources/js/redux/actions/setActiveComponent.js");
+/* harmony import */ var _setElection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./setElection */ "./resources/js/redux/actions/setElection.js");
+
 
 
 var rootAction = {
   setAuthUser: _setAuthUser__WEBPACK_IMPORTED_MODULE_0__["default"],
+  setElection: _setElection__WEBPACK_IMPORTED_MODULE_2__["default"],
   setActiveComponent: _setActiveComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
 };
 /* harmony default export */ __webpack_exports__["default"] = (rootAction);
@@ -68265,6 +68272,26 @@ var setAuthUser = function setAuthUser(user) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (setAuthUser);
+
+/***/ }),
+
+/***/ "./resources/js/redux/actions/setElection.js":
+/*!***************************************************!*\
+  !*** ./resources/js/redux/actions/setElection.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var setElection = function setElection(start) {
+  return {
+    type: 'SET_AUTH_USER',
+    payload: start
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (setElection);
 
 /***/ }),
 
@@ -68379,6 +68406,31 @@ var constituencyReducer = function constituencyReducer() {
 
 /***/ }),
 
+/***/ "./resources/js/redux/reducers/elecction.js":
+/*!**************************************************!*\
+  !*** ./resources/js/redux/reducers/elecction.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var electionReducer = function electionReducer() {
+  var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  if (action.type === 'SET_ELECTION') {
+    if (action.payload !== undefined) start = action.payload;
+    return start;
+  } else {
+    return start;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (electionReducer);
+
+/***/ }),
+
 /***/ "./resources/js/redux/reducers/index.js":
 /*!**********************************************!*\
   !*** ./resources/js/redux/reducers/index.js ***!
@@ -68393,6 +68445,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _constituency__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constituency */ "./resources/js/redux/reducers/constituency.js");
 /* harmony import */ var _voter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./voter */ "./resources/js/redux/reducers/voter.js");
+/* harmony import */ var _elecction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./elecction */ "./resources/js/redux/reducers/elecction.js");
+
 
 
 
@@ -68403,7 +68457,8 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_2__["combineReducers"])(
   authUserReducer: _authUser__WEBPACK_IMPORTED_MODULE_0__["default"],
   activeComponentReducer: _activeComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
   constituencyReducer: _constituency__WEBPACK_IMPORTED_MODULE_3__["default"],
-  voterReducer: _voter__WEBPACK_IMPORTED_MODULE_4__["default"]
+  voterReducer: _voter__WEBPACK_IMPORTED_MODULE_4__["default"],
+  electionReducer: _elecction__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
 
