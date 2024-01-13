@@ -1,3 +1,5 @@
+import ConstituenciesResultList from "../components/commissioner/ConstituenciesResultList";
+
 require('../app');
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
@@ -10,6 +12,7 @@ import {createStore} from 'redux';
 import rootReducer from '../redux/reducers/index'
 import { Provider, useDispatch, useSelector } from 'react-redux'
 import rootAction from '../redux/actions/index'
+import FinalResult from "../components/commissioner/FinalResult";
 
 //create reducer
 const myStore = createStore(
@@ -34,17 +37,17 @@ function App() {
 					<span className="page-title-icon bg-gradient-primary text-white mr-2">
 						{ activeComponent && activeComponent == 'LeadList' ?
 						<i className="mdi mdi-account-multiple"></i> : (activeComponent && activeComponent == 'NewLead' ? <i className="mdi mdi-account-plus"></i> :
-						(activeComponent && activeComponent == 'EditLead' ? <i className="mdi mdi-folder-account"></i> : '' ) )
+						(activeComponent && activeComponent == 'EditLead' ? <i className="mdi mdi-folder-account"></i> : activeComponent && activeComponent == 'ConstituenciesResultList'?<i className="mdi mdi-newspaper"></i>:activeComponent && activeComponent == 'FinalResult'?<i className="mdi mdi-newspaper"></i>:'' ) )
 					}
 					</span>
 				 	{ activeComponent && activeComponent == 'LeadList' ?
 						'All Candidates' : (activeComponent && activeComponent == 'NewLead' ? 'New Candidate' :
-						(activeComponent && activeComponent == 'EditLead' ? 'Edit Candidate' : '' ) )
+						(activeComponent && activeComponent == 'EditLead' ? 'Edit Candidate' :activeComponent && activeComponent == 'ConstituenciesResultList'?'Results': activeComponent && activeComponent == 'FinalResult'?'Final Results': '' ) )
 					}
 				</h3>
 				<nav aria-label="breadcrumb">
 					{ activeComponent && activeComponent != 'LeadList' ?
-						<Link to='/lead/list' className="btn btn-social-icon-text btn-linkedin"><i className="mdi mdi-arrow-left-bold btn-icon-prepend"></i>&nbsp; Back</Link> : <Link to='/lead/new' className="btn btn-social-icon-text btn-linkedin"><i className="mdi mdi-account-plus btn-icon-prepend"></i>&nbsp; New</Link>
+						<Link to='/home' className="btn btn-social-icon-text btn-linkedin"><i className="mdi mdi-arrow-left-bold btn-icon-prepend"></i>&nbsp; Back</Link> : <Link to='/lead/new' className="btn btn-social-icon-text btn-linkedin"><i className="mdi mdi-account-plus btn-icon-prepend"></i>&nbsp; New</Link>
 					}
 				</nav>
 			</div>
@@ -55,6 +58,8 @@ function App() {
 							<Route exact path='/lead/list' > <LeadList /> </Route>
 							<Route path='/lead/new' > <NewLead /> </Route>
 							<Route path='/lead/edit/:id' component={EditLead} />
+							<Route path='/result/constituency-list' > <ConstituenciesResultList /> </Route>
+							<Route path='/result/final' > <FinalResult /> </Route>
 						</Switch>
 
 				</div>

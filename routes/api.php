@@ -12,6 +12,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'v1'], function () {
     Route::get('/lead/listCandidateVotes', 'Api\LeadController@listCandidateVotes');
     Route::get('/lead/votesDropdown', 'Api\LeadController@votesDropdown');
     Route::get('/lead/listVotesConstituency', 'Api\LeadController@listVotesConstituency');
+    Route::get('/constituency/results', 'Api\LeadController@votesDropdown');
 
     Route::get('/dashboard-data', 'Api\HomeController@getData');
     Route::get('/party/party-dropdown', 'Api\PartyController@partiesDropdown');
