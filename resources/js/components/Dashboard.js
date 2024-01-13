@@ -8,6 +8,7 @@ import {showSznNotification} from "../Helpers";
 import {setVoter} from "../redux/actions/setVoter";
 import voter from "../redux/reducers/voter";
 import voterReducer from "../redux/reducers/voter";
+import Countdown from "react-countdown";
 
 const Dashboard = (props) => {
 
@@ -25,6 +26,7 @@ const Dashboard = (props) => {
         end_time:null,})
 
     const [electionTimeDifference, setElectionTimeDifference] = useState(0)
+    const [electionStarted, setElectionStarted] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -54,6 +56,16 @@ const Dashboard = (props) => {
             loadVoterData();
         }
     }, []);
+
+    useEffect(() => {
+        if(electionStarted){
+            loadVoterData();
+            const intervalId = setInterval(() => {
+                loadVoterData();
+            }, 300000); // Adjust the interval as needed
+            return () => clearInterval(intervalId);
+        }
+    }, [electionStarted]);
 
     const loadData = () => {
         setState({
@@ -125,40 +137,6 @@ const Dashboard = (props) => {
         return formattedDate
     }
 
-    const updateCountdown = ()=> {
-        if(electionDate){
-            const endDate = new Date(`${electionDate.date}T${electionDate.end_time}`);
-            const currentDate = new Date();
-
-            // Calculate the time difference in milliseconds
-            const timeDifference = endDate - currentDate;
-
-            // Check if the event has already ended
-            if (timeDifference <= 0) {
-                clearInterval(countdownInterval);
-                return "Event has ended!";
-            }else {
-
-                // if(state.authUser.email === "election@shangrila.gov.sr"){
-                //     loadVoterData()
-                // }
-
-                // Convert the time difference to hours, minutes, and seconds
-                const seconds = Math.floor((timeDifference / 1000) % 60);
-                const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
-                const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
-
-                // Display the countdown
-                return `Time remaining: ${hours} hours, ${minutes} minutes, ${seconds} seconds`
-            }
-        }
-    }
-
-// Update the countdown every second
-    let countdownInterval = setInterval(updateCountdown, 1000);
-
-// Initial call to update countdown immediately
-
     const loadElectionData = () => {
         axios.get('/api/v1/votingStart/getByDate', {
             params: {
@@ -168,10 +146,6 @@ const Dashboard = (props) => {
         })
         .then(response => {
             setElectionDate(response.data.message)
-            if (new Date() >= new Date(`${response.data.message.date}T${response.data.message.start_time}`)) {
-                // Update the countdown every second
-                countdownInterval = setInterval(updateCountdown, 1000);
-            }
         })
         .catch((error) => {
             setState({
@@ -260,7 +234,7 @@ const Dashboard = (props) => {
                                 //           aria-valuemax="100"></div>
                                 // </div>:
                                     lead.votes:
-                                    (!checkMyVote() && <button type="button" className="btn btn-danger btn-sm btn-upper" onClick={() => onVoteHandle(lead?.id,lead?.name)}>Vote
+                                    (!checkMyVote() && electionStarted && <button type="button" className="btn btn-danger btn-sm btn-upper" onClick={() => onVoteHandle(lead?.id,lead?.name)}>Vote
                             </button>)
 
                                 }
@@ -311,6 +285,26 @@ const Dashboard = (props) => {
         }
     }
 
+    const Completionist = () => <span>Times Up!</span>;
+
+    const renderer = ({ hours, minutes, seconds, completed }) => {
+        if (completed) {
+            // Render a completed state
+            return <Completionist />;
+        } else {
+            // Render a countdown
+            return <h4>{`hours ${hours}`} : {`minutes ${minutes}`} : {`seconds ${seconds}`}</h4>;
+        }
+    };
+
+    const onStart = () => {
+        setElectionStarted(false)
+    }
+
+    const onStop = () => {
+        setElectionStarted(false)
+    }
+
     return (
         <React.Fragment>
             <div className="page-header">
@@ -321,9 +315,9 @@ const Dashboard = (props) => {
 				 	Dashboard
 				</h3>
 			</div>
-            <div style={{padding:10}}>
-                {updateCountdown()}
-            </div>
+            {electionDate && <div style={{padding: 10}}>
+                {electionDate.date && <Countdown onStop={()=>onStop()} onStart={()=>onStart()} date={`${electionDate.date}T${electionDate.end_time}`} renderer={renderer}/>}
+            </div>}
             {authUser.email === "election@shangrila.gov.sr" && <div className="row animated fadeIn">
                 <div className="col-md-4 stretch-card grid-margin">
                     <div className="card bg-danger card-img-holder text-white">
