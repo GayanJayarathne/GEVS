@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use App\Models\Cluster;
 use App\Models\Constituency;
+use App\Models\Coordinator;
 use App\Models\Department;
 use App\Models\Lead;
+use App\Models\Role;
 use App\Models\TrainingDiaryCode;
 use App\Models\TrainingDiaryStatus;
 use App\Models\TrainingDiaryType;
@@ -239,6 +241,22 @@ class LeadController extends Controller
         return response()->json([
             'result' => $obj,
             'message' => 'ok',
+            'status' => 'success'
+        ]);
+    }
+
+    public function listVotesConstituency(Request $request)
+    {
+
+        $constituency = Lead::join('parties', 'leads.party_id', '=', 'parties.id')
+            ->join('constituencies', 'leads.constituency_id', '=', 'constituencies.id')
+            ->select('leads.name as candidate_name', 'parties.name as party_name', 'constituencies.name as constituency_name', 'leads.votes')
+            ->where('leads.constituency_id', $request['constituency_id'])
+            ->orderBy('votes', 'desc')
+            ->paginate($request['per_page']);
+
+        return response()->json([
+            'message' => $constituency,
             'status' => 'success'
         ]);
     }
