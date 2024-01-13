@@ -22,21 +22,6 @@ class VotingStartController extends Controller
 
     public function create(Request $request)
     {
-//        $user = User::where('api_token',$request['api_token'])->first();
-
-//        $validate = Validator::make($request->all(), [
-//            'date'        => 'required|date',
-//            'start_time'  => 'time',
-//            'end_time'    => 'time'
-//        ]);
-
-//        if ($validate->fails()) {
-//            return response()->json([
-//                'message' => $validate->errors(),
-//                'status' => 'validation-error'
-//            ], 401);
-//        }
-
         $newVotingStart = VotingStart::create([
             'date'        => $request['date'],
             'start_time'  => $request['start_time'],
@@ -54,5 +39,17 @@ class VotingStartController extends Controller
                 'status' => 'error'
             ]);
         }
+    }
+
+    public function getByDate(Request $request)
+    {
+//        $user = User::where('api_token', $request['api_token'])->first();
+
+        $votingDate = VotingStart::Where('date', $request['date'])->first();
+
+        return response()->json([
+            'message' => $votingDate,
+            'status' => 'success'
+        ]);
     }
 }
