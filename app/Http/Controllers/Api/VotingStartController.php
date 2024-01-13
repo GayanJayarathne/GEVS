@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Constituency;
+use App\Http\Controllers\Controller;
 use App\Models\Lead;
 use App\Models\User;
 use App\Models\VotingStart;

@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/result/constituency-list', 'ResultsController@index')->name('ConstituenciesResultList');
     Route::get('/result/by-constituency', 'ResultsController@index')->name('ByConstituenciesResult');
     Route::get('/result/final', 'ResultsController@index')->name('FinalResult');
+    Route::get('/election', 'ResultsController@index')->name('NewElection');
 
     Route::get('/lead/list', 'LeadController@index')->name('Leads');
     Route::get('/lead/new', 'LeadController@index')->name('NewLead');

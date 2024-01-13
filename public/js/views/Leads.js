@@ -94665,6 +94665,281 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./resources/js/components/commissioner/NewElection.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/commissioner/NewElection.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_actions_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/actions/index */ "./resources/js/redux/actions/index.js");
+/* harmony import */ var animate_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! animate.css */ "./node_modules/animate.css/animate.css");
+/* harmony import */ var animate_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(animate_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_spinners_BeatLoader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-spinners/BeatLoader */ "./node_modules/react-spinners/BeatLoader.js");
+/* harmony import */ var react_spinners_BeatLoader__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_spinners_BeatLoader__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _Helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Helpers */ "./resources/js/Helpers.js");
+/* harmony import */ var react_loading_overlay__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-loading-overlay */ "./node_modules/react-loading-overlay/lib/LoadingOverlay.js");
+/* harmony import */ var react_loading_overlay__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_loading_overlay__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var simple_react_validator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! simple-react-validator */ "./node_modules/simple-react-validator/dist/simple-react-validator.min.js");
+/* harmony import */ var simple_react_validator__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(simple_react_validator__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _redux_actions_setAuthUser__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../redux/actions/setAuthUser */ "./resources/js/redux/actions/setAuthUser.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+
+var NewElection = function NewElection(props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    date: '',
+    start_time: '',
+    end_time: '',
+    loading: false,
+    authUser: props.authUserProp
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["useHistory"])(); //validator
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      forceUpdate = _useState4[1]; //this is a dummy state, when form submitted, change the state so that message is rendered
+
+
+  var simpleValidator = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(new simple_react_validator__WEBPACK_IMPORTED_MODULE_7___default.a({
+    autoForceUpdate: {
+      forceUpdate: forceUpdate
+    },
+    className: 'small text-danger mdi mdi-alert pt-1 pl-1'
+  }));
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    document.title = 'New Candidate';
+    props.setActiveComponentProp('NewLead');
+  }, []);
+
+  var onChangeHandle = function onChangeHandle(e) {
+    var _e$target = e.target,
+        name = _e$target.name,
+        value = _e$target.value;
+    setState(_objectSpread({}, state, _defineProperty({}, name, value)));
+  };
+
+  var onSubmitHandle = function onSubmitHandle(e) {
+    e.preventDefault();
+
+    if (simpleValidator.current.allValid()) {
+      setState(_objectSpread({}, state, {
+        loading: true
+      }));
+      axios.post('/api/v1/votingStart/create', $(e.target).serialize()).then(function (response) {
+        setState(_objectSpread({}, state, {
+          loading: false
+        }));
+
+        if (response.data.status == 'validation-error') {
+          var errorArray = response.data.message;
+          $.each(errorArray, function (key, errors) {
+            $.each(errors, function (key, errorMessage) {
+              Object(_Helpers__WEBPACK_IMPORTED_MODULE_5__["showSznNotification"])({
+                type: 'error',
+                message: errorMessage
+              });
+            });
+          });
+        } else if (response.data.status == 'error') {
+          Object(_Helpers__WEBPACK_IMPORTED_MODULE_5__["showSznNotification"])({
+            type: 'error',
+            message: response.data.message
+          });
+        } else if (response.data.status == 'success') {
+          Object(_Helpers__WEBPACK_IMPORTED_MODULE_5__["showSznNotification"])({
+            type: 'success',
+            message: response.data.message
+          });
+          history.push('/lead/list');
+        }
+      })["catch"](function (error) {
+        console.log(error);
+        setState(_objectSpread({}, state, {
+          loading: false
+        }));
+
+        if (error.response.data.status == 'validation-error') {
+          var errorArray = error.response.data.message;
+          $.each(errorArray, function (key, errors) {
+            $.each(errors, function (key, errorMessage) {
+              Object(_Helpers__WEBPACK_IMPORTED_MODULE_5__["showSznNotification"])({
+                type: 'error',
+                message: errorMessage
+              });
+            });
+          });
+        } else if (error.response.data.status == 'error') {
+          Object(_Helpers__WEBPACK_IMPORTED_MODULE_5__["showSznNotification"])({
+            type: 'error',
+            message: error.response.data.message
+          });
+        }
+      });
+    } else {
+      simpleValidator.current.showMessages();
+      forceUpdate(1);
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card animated fadeIn"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row new-lead-wrapper d-flex justify-content-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-8 "
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_loading_overlay__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    active: state.loading,
+    spinner: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_spinners_BeatLoader__WEBPACK_IMPORTED_MODULE_4___default.a, null),
+    styles: {
+      overlay: function overlay(base) {
+        return _objectSpread({}, base, {
+          opacity: '0.5',
+          filter: 'alpha(opacity=50)',
+          background: 'white'
+        });
+      }
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    className: "new-lead-form border",
+    onSubmit: onSubmitHandle
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "hidden",
+    name: "api_token",
+    value: state.authUser.api_token
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "nav nav-tabs nav-pills c--nav-pills nav-justified"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "nav-link btn btn-gradient-primary btn-block active"
+  }, "NEW ELECTION")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Date"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group input-group-sm"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group-prepend"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "input-group-text bg-gradient-success text-white"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "mdi mdi-calendar"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "date",
+    className: "form-control form-control-sm",
+    id: "date",
+    name: "date",
+    placeholder: "Date",
+    value: state.date,
+    onChange: onChangeHandle
+  })), simpleValidator.current.message('date', state.date, 'required')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Start Time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group input-group-sm"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group-prepend"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "input-group-text bg-gradient-success text-white"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "mdi mdi-calendar"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "time",
+    className: "form-control form-control-sm",
+    id: "start_time",
+    name: "start_time",
+    placeholder: "Start Time",
+    value: state.start_time,
+    onChange: onChangeHandle
+  })), simpleValidator.current.message('start_time', state.start_time, 'required')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "End Time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group input-group-sm"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group-prepend"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "input-group-text bg-gradient-success text-white"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "mdi mdi-calendar"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "time",
+    className: "form-control form-control-sm",
+    id: "end_time",
+    name: "end_time",
+    placeholder: "End Time",
+    value: state.end_time,
+    onChange: onChangeHandle
+  })), simpleValidator.current.message('end_time', state.end_time, 'required')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group text-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "submit",
+    className: "btn btn-gradient-primary btn-md mr-2"
+  }, "Save"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["Link"], {
+    to: "/lead/list",
+    className: "btn btn-inverse-secondary btn-md"
+  }, "Cancel")))))))));
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    authUserProp: state.authUserReducer,
+    activeComponentProp: state.activeComponentReducer
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setAuthUserProp: function setAuthUserProp(user) {
+      return dispatch(Object(_redux_actions_setAuthUser__WEBPACK_IMPORTED_MODULE_9__["default"])(user));
+    },
+    setActiveComponentProp: function setActiveComponentProp(component) {
+      return dispatch(_redux_actions_index__WEBPACK_IMPORTED_MODULE_2__["default"].setActiveComponent(component));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(NewElection));
+
+/***/ }),
+
 /***/ "./resources/js/components/commissioner/ResultByConstituencies.js":
 /*!************************************************************************!*\
   !*** ./resources/js/components/commissioner/ResultByConstituencies.js ***!
@@ -95198,9 +95473,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_actions_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../redux/actions/index */ "./resources/js/redux/actions/index.js");
 /* harmony import */ var _components_commissioner_FinalResult__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/commissioner/FinalResult */ "./resources/js/components/commissioner/FinalResult.js");
 /* harmony import */ var _components_commissioner_ResultByConstituencies__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/commissioner/ResultByConstituencies */ "./resources/js/components/commissioner/ResultByConstituencies.js");
+/* harmony import */ var _components_commissioner_NewElection__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/commissioner/NewElection */ "./resources/js/components/commissioner/NewElection.js");
 
 
 __webpack_require__(/*! ../app */ "./resources/js/app.js");
+
 
 
 
@@ -95273,7 +95550,9 @@ function App() {
     path: "/result/final"
   }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_commissioner_FinalResult__WEBPACK_IMPORTED_MODULE_12__["default"], null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/result/by-constituency"
-  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_commissioner_ResultByConstituencies__WEBPACK_IMPORTED_MODULE_13__["default"], null), " "))))));
+  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_commissioner_ResultByConstituencies__WEBPACK_IMPORTED_MODULE_13__["default"], null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+    path: "/election"
+  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_commissioner_NewElection__WEBPACK_IMPORTED_MODULE_14__["default"], null), " "))))));
 }
 
 react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_10__["Provider"], {

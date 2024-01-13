@@ -47,5 +47,11 @@
                 </ul>
               </div>
             </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('NewElection') }}">
+                      <span class="menu-title">Election</span>
+                      <i class="mdi mdi-home menu-icon"></i>
+                  </a>
+              </li>
           </ul>
         </nav>

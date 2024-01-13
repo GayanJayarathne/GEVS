@@ -14,6 +14,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux'
 import rootAction from '../redux/actions/index'
 import FinalResult from "../components/commissioner/FinalResult";
 import ResultByConstituencies from "../components/commissioner/ResultByConstituencies";
+import NewElection from "../components/commissioner/NewElection";
 
 //create reducer
 const myStore = createStore(
@@ -62,6 +63,7 @@ function App() {
 							<Route path='/result/constituency-list' > <ConstituenciesResultList /> </Route>
 							<Route path='/result/final' > <FinalResult /> </Route>
 							<Route path='/result/by-constituency' > <ResultByConstituencies /> </Route>
+							<Route path='/election' > <NewElection /> </Route>
 						</Switch>
 
 				</div>
