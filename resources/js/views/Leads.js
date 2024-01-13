@@ -44,7 +44,7 @@ function App() {
 					</span>
 				 	{ activeComponent && activeComponent == 'LeadList' ?
 						'All Candidates' : (activeComponent && activeComponent == 'NewLead' ? 'New Candidate' :
-						(activeComponent && activeComponent == 'EditLead' ? 'Edit Candidate' :activeComponent && activeComponent == 'ConstituenciesResultList'?'Results': activeComponent && activeComponent == 'FinalResult'?'Final Results': '' ) )
+						(activeComponent && activeComponent == 'EditLead' ? 'Edit Candidate' :activeComponent && activeComponent == 'ConstituenciesResultList'?'Results': activeComponent && activeComponent == 'FinalResult'?'Final Results': 'New' ) )
 					}
 				</h3>
 				<nav aria-label="breadcrumb">

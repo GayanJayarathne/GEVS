@@ -1,10 +1,4 @@
-const defaultState = {
-    voted:Boolean,
-    test:'test',
-};
-
-
-const voterReducer = (vote = defaultState, action) => {
+const voterReducer = (vote=null, action) => {
     if (action) {
         switch (action?.type) {
             case 'SET_VOTER':

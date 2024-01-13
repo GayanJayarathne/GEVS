@@ -67172,6 +67172,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Dashboard = function Dashboard(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     authUser: props.authUserProp,
@@ -67191,7 +67192,9 @@ var Dashboard = function Dashboard(props) {
       setVoted = _useState4[1];
 
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
-  var myVote = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(_redux_reducers_voter__WEBPACK_IMPORTED_MODULE_8__["default"]);
+  var myVote = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) {
+    return state.voterReducer;
+  });
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     // if (typeof window !== "undefined") {
     //     const iziToast = require('iziToast');
@@ -67292,7 +67295,7 @@ var Dashboard = function Dashboard(props) {
           message: response.data.message
         });
       } else if (response.data.status === 'success') {
-        dispatch(Object(_redux_actions_setVoter__WEBPACK_IMPORTED_MODULE_7__["setVoter"])(true));
+        dispatch(Object(_redux_actions_setVoter__WEBPACK_IMPORTED_MODULE_7__["setVoter"])(authUser.email, true));
         Object(_Helpers__WEBPACK_IMPORTED_MODULE_6__["showSznNotification"])({
           type: 'success',
           message: response.data.message
@@ -67305,6 +67308,14 @@ var Dashboard = function Dashboard(props) {
       }));
       console.log(error);
     });
+  };
+
+  var checkMyVote = function checkMyVote() {
+    if (myVote) {
+      return myVote.hasOwnProperty(authUser.email);
+    } else {
+      return false;
+    }
   };
 
   var showRecentLeads = function showRecentLeads() {
@@ -67328,7 +67339,7 @@ var Dashboard = function Dashboard(props) {
             "aria-valuenow": lead.votes ? lead.votes : 0,
             "aria-valuemin": "0",
             "aria-valuemax": "100"
-          })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          })) : !checkMyVote() && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             type: "button",
             className: "btn btn-danger btn-sm btn-upper",
             onClick: function onClick() {
@@ -67606,8 +67617,8 @@ var authUserReducer = function authUserReducer() {
   var authUser = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
-  if (action.type == 'SET_AUTH_USER') {
-    if (action.payload != undefined) authUser = action.payload;
+  if (action.type === 'SET_AUTH_USER') {
+    if (action.payload !== undefined) authUser = action.payload;
     return authUser;
   } else {
     return authUser;
@@ -67704,13 +67715,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var defaultState = {
-  voted: Boolean,
-  test: 'test'
-};
-
 var voterReducer = function voterReducer() {
-  var vote = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var vote = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   if (action) {
