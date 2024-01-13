@@ -11,4 +11,9 @@ class VotingStart extends Model
         'start_time',
         'end_time'
     ];
+
+    public function voting()
+    {
+        return $this ->hasOne('App\Models\VotingStart');
+    }
 }
