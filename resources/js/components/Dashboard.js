@@ -20,7 +20,11 @@ const Dashboard = (props) => {
        loading: false,
     });
 
-    const [voted, setVoted] = useState()
+    const [electionDate, setElectionDate] = useState({date:null,
+        start_time:null,
+        end_time:null,})
+
+    const [electionTimeDifference, setElectionTimeDifference] = useState(0)
 
     const dispatch = useDispatch()
 
@@ -43,6 +47,7 @@ const Dashboard = (props) => {
         // }
 
         props.setActiveComponentProp('Dashboard');
+        loadElectionData()
         if(authUser.email === "election@shangrila.gov.sr") {
             loadData();
         }else{
@@ -108,26 +113,65 @@ const Dashboard = (props) => {
         });
     };
 
+    const renderToday = () => {
+        const today = new Date();
+
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Adding 1 because months are zero-based
+        const day = String(today.getDate()).padStart(2, '0');
+
+        const formattedDate = `${year}-${month}-${day}`;
+
+        return formattedDate
+    }
+
+    const updateCountdown = ()=> {
+        if(electionDate){
+            const endDate = new Date(`${electionDate.date}T${electionDate.end_time}`);
+            const currentDate = new Date();
+
+            // Calculate the time difference in milliseconds
+            const timeDifference = endDate - currentDate;
+
+            // Check if the event has already ended
+            if (timeDifference <= 0) {
+                clearInterval(countdownInterval);
+                return "Event has ended!";
+            }else {
+
+                // if(state.authUser.email === "election@shangrila.gov.sr"){
+                //     loadVoterData()
+                // }
+
+                // Convert the time difference to hours, minutes, and seconds
+                const seconds = Math.floor((timeDifference / 1000) % 60);
+                const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+                const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+
+                // Display the countdown
+                return `Time remaining: ${hours} hours, ${minutes} minutes, ${seconds} seconds`
+            }
+        }
+    }
+
+// Update the countdown every second
+    let countdownInterval = setInterval(updateCountdown, 1000);
+
+// Initial call to update countdown immediately
+
     const loadElectionData = () => {
-        setState({
-            ...state,
-            loading: true
-        });
-        axios.get(state.authUser.email === "election@shangrila.gov.sr"?'/api/v1/dashboard-data?':'/api/v1/candidate/constituency-list?', {
+        axios.get('/api/v1/votingStart/getByDate', {
             params: {
                 api_token: state.authUser.api_token,
-                date:
+                date:renderToday()
             }
         })
         .then(response => {
-            setState({
-                ...state,
-                loading: false,
-                totalLeads: response.data.message.totalLeads,
-                weeklyLeads: response.data.message.weeklyLeads,
-                monthlyLeads: response.data.message.monthlyLeads,
-                recentLeads: response.data.message.data,
-            })
+            setElectionDate(response.data.message)
+            if (new Date() >= new Date(`${response.data.message.date}T${response.data.message.start_time}`)) {
+                // Update the countdown every second
+                countdownInterval = setInterval(updateCountdown, 1000);
+            }
         })
         .catch((error) => {
             setState({
@@ -277,6 +321,9 @@ const Dashboard = (props) => {
 				 	Dashboard
 				</h3>
 			</div>
+            <div style={{padding:10}}>
+                {updateCountdown()}
+            </div>
             {authUser.email === "election@shangrila.gov.sr" && <div className="row animated fadeIn">
                 <div className="col-md-4 stretch-card grid-margin">
                     <div className="card bg-danger card-img-holder text-white">
