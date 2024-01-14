@@ -94503,6 +94503,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var ConstituenciesResultList = function ConstituenciesResultList(props) {
+  var _partySeats$;
+
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     authUser: props.authUserProp,
     totalSeats: null,
@@ -94556,6 +94558,10 @@ var ConstituenciesResultList = function ConstituenciesResultList(props) {
       console.log(error);
     });
   };
+
+  var election = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.electionReducer;
+  });
 
   var showRecentLeads = function showRecentLeads() {
     if (partySeats) {
@@ -94636,7 +94642,11 @@ var ConstituenciesResultList = function ConstituenciesResultList(props) {
     className: "card-body animated fadeIn"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
     className: "card-title"
-  }, "Final Result"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Final Result"), election ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    className: "card-title"
+  }, "Pending...") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    className: "card-title"
+  }, "Winner : ", partySeats && ((_partySeats$ = partySeats[0]) === null || _partySeats$ === void 0 ? void 0 : _partySeats$.party)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "table-responsive"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     className: "table"
@@ -95228,10 +95238,13 @@ var TopControlCons = function TopControlCons(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _setAuthUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setAuthUser */ "./resources/js/redux/actions/setAuthUser.js");
 /* harmony import */ var _setActiveComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setActiveComponent */ "./resources/js/redux/actions/setActiveComponent.js");
+/* harmony import */ var _setElection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./setElection */ "./resources/js/redux/actions/setElection.js");
+
 
 
 var rootAction = {
   setAuthUser: _setAuthUser__WEBPACK_IMPORTED_MODULE_0__["default"],
+  setElection: _setElection__WEBPACK_IMPORTED_MODULE_2__["default"],
   setActiveComponent: _setActiveComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
 };
 /* harmony default export */ __webpack_exports__["default"] = (rootAction);
@@ -95275,6 +95288,26 @@ var setAuthUser = function setAuthUser(user) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (setAuthUser);
+
+/***/ }),
+
+/***/ "./resources/js/redux/actions/setElection.js":
+/*!***************************************************!*\
+  !*** ./resources/js/redux/actions/setElection.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var setElection = function setElection(start) {
+  return {
+    type: 'SET_AUTH_USER',
+    payload: start
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (setElection);
 
 /***/ }),
 
@@ -95369,6 +95402,31 @@ var constituencyReducer = function constituencyReducer() {
 
 /***/ }),
 
+/***/ "./resources/js/redux/reducers/elecction.js":
+/*!**************************************************!*\
+  !*** ./resources/js/redux/reducers/elecction.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var electionReducer = function electionReducer() {
+  var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  if (action.type === 'SET_ELECTION') {
+    if (action.payload !== undefined) start = action.payload;
+    return start;
+  } else {
+    return start;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (electionReducer);
+
+/***/ }),
+
 /***/ "./resources/js/redux/reducers/index.js":
 /*!**********************************************!*\
   !*** ./resources/js/redux/reducers/index.js ***!
@@ -95383,6 +95441,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _constituency__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constituency */ "./resources/js/redux/reducers/constituency.js");
 /* harmony import */ var _voter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./voter */ "./resources/js/redux/reducers/voter.js");
+/* harmony import */ var _elecction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./elecction */ "./resources/js/redux/reducers/elecction.js");
+
 
 
 
@@ -95393,7 +95453,8 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_2__["combineReducers"])(
   authUserReducer: _authUser__WEBPACK_IMPORTED_MODULE_0__["default"],
   activeComponentReducer: _activeComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
   constituencyReducer: _constituency__WEBPACK_IMPORTED_MODULE_3__["default"],
-  voterReducer: _voter__WEBPACK_IMPORTED_MODULE_4__["default"]
+  voterReducer: _voter__WEBPACK_IMPORTED_MODULE_4__["default"],
+  electionReducer: _elecction__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
 

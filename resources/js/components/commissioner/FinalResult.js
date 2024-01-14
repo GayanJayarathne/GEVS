@@ -61,6 +61,8 @@ const ConstituenciesResultList = (props) => {
             });
     };
 
+    const election = useSelector(state => state.electionReducer)
+
     const showRecentLeads = () => {
         if(partySeats){
             if(partySeats.length > 0){
@@ -138,7 +140,9 @@ const ConstituenciesResultList = (props) => {
                     <div className="card">
                         <div className="card-body animated fadeIn">
                             <h4 className="card-title">Final Result</h4>
+                            {election ? <h4 className="card-title">Pending...</h4>:<h4 className="card-title">Winner : {partySeats && partySeats[0]?.party}</h4>}
                             {/*{JSON.stringify(partySeats)}*/}
+                            {/*<h4 className="card-title">Winner : {partySeats && partySeats[0]?.party}</h4>*/}
                             <div className="table-responsive">
                                 <table className="table">
                                     <thead>
