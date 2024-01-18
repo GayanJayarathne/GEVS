@@ -1,19 +1,6 @@
-<p><h1 align="center">React Laravel</h1></p>
-
-<p align="center">
-    <a href="https://laravel.com/"><img src="https://img.shields.io/badge/laravel-7.5.2-orange" alt="laravel 7.5.2"></a>
-    <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/react-16.13.1-blue" alt="react 16.13.1"></a>
-    <a href="https://react-redux.js.org/"><img src="https://img.shields.io/static/v1?label=redux&message=7.2&color=blueviolet" alt="redux 7.2"></a>
-    <a href="https://reacttraining.com/react-router/"><img src="https://img.shields.io/badge/react router-5.1.2-success" alt="react router 5.1.2"></a>
-</p>
-
 ## About
 A crud based laravel app to learn how to integrate react and other important react feature in laravel.
 
-> A better laravel react single page app: [Ezfolio](https://github.com/arifszn/ezfolio)
-
-## Demo ##
-[https://szn-react-laravel.herokuapp.com](https://szn-react-laravel.herokuapp.com)
 
 ## Topics Convered
 - React
@@ -27,21 +14,11 @@ A crud based laravel app to learn how to integrate react and other important rea
 - Laravel Manual Pagination
 - Laravel Crud
 - Sass
+- PHP 7.4.6
 
-## Screenshots
-![alt text](https://raw.githubusercontent.com/arifszn/react-laravel/main/public/assets/images/screenshots/1.png)
-<br />
-<br />
 
-***
-
-![alt text](https://raw.githubusercontent.com/arifszn/react-laravel/main/public/assets/images/screenshots/2.png)
-<br />
-<br />
 
 ## Installation
-- Run ```git clone https://github.com/arifszn/react-laravel.git```
-- Run ```cd react-laravel```
 - Run ```composer install```
 - Setup database
 - Run ```cp .env.example .env```
@@ -49,17 +26,4 @@ A crud based laravel app to learn how to integrate react and other important rea
 - Provide db name, username and password in .env
 - Run ```php artisan migrate --seed```
 
-
 ## Thank You
-
-[![Stargazers repo roster for @arifszn/react-laravel](https://reporoster.com/stars/arifszn/react-laravel)](https://github.com/arifszn/react-laravel/stargazers)
-
-## Support
-
-Show your ❤️ and support by giving a ⭐.
-
-
-## License
-
-<p>MIT Licensed.</p>
-<p>Copyright © <a href="https://arifszn.github.io">MD. Ariful Alam</a> 2021.</p>
